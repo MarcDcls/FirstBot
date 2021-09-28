@@ -12,7 +12,7 @@ Ce script récupère chaque image filmée et appelle la fonction `processing` du
 
 ATTENTION : ligne 4 du fichier `capture.py`, il faut mettre le bon id en paramètre de `cv.VideoCapture(id)`. Pour savoir quel est le bon id, taper la commande `ls -ltr /dev/video*` dans un terminal et mettre le chiffre correspondant à la caméra (exemple, si la caméra est sur le `/dev/video2`, alors l'id est 2).
 
-#Travailler sur Raspberry Pi
+# Travailler sur Raspberry Pi
 IP = IP de la Raspberry
 
 Pour copier un fichier sur la Raspberry : (depuis un terminal non connecté en ssh) 'scp fichier pi@IP:' (copie sur le dossier root)
