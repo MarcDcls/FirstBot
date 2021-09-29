@@ -6,29 +6,29 @@ import numpy
 import time
 
 
-init():
 
-    ports = pypot.dynamixel.get_available_ports()
-    if not ports:
-        exit('No port')
 
-    port = ports[0]
-    print('Using the first on the list', port)
+ports = pypot.dynamixel.get_available_ports()
+if not ports:
+    exit('No port')
 
-    dxl_io = pypot.dynamixel.DxlIO(port)
-    print('Connected!')
+port = ports[0]
+print('Using the first on the list', port)
 
-    found_ids = dxl_io.scan([1,2])
-    print('Found ids:', found_ids)
+dxl_io = pypot.dynamixel.DxlIO(port)
+print('Connected!')
 
-    ids = found_ids[:2]
-    dxl_io.enable_torque(ids)
-    cap = cv.VideoCapture(0)
-    if not cap.isOpened():
-        print("Cannot open camera")
-        exit()
+found_ids = dxl_io.scan([1,2])
+print('Found ids:', found_ids)
+
+ids = found_ids[:2]
+dxl_io.enable_torque(ids)
+cap = cv.VideoCapture(0)
+if not cap.isOpened():
+    print("Cannot open camera")
+    exit()
     
-    speed = {1 :-200 ,2 : 200 }
+speed = {1 :-200 ,2 : 200 }
 
 while True:
     # Capture frame-by-frame
