@@ -30,9 +30,13 @@ def get_centroid(image):
     
     M = cv.moments(image)
 
-    # calcul du centroïde
-    cx = int(M['m10']/M['m00'])
-    cy = int(M['m01']/M['m00'])
+    # calcul du centroïde (si tout vaut 0, alors pas de ligne détectée)
+    try:
+        cx = int(M['m10']/M['m00'])
+        cy = int(M['m01']/M['m00'])
+    except:
+        print("No line detected (end).")
+        exit()
 
     return cx, cy
 
