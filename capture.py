@@ -22,7 +22,7 @@ ids = found_ids[:2]
 
 dxl_io.enable_torque(ids)
 
-cap = cv.VideoCapture(2)
+cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
@@ -37,16 +37,16 @@ while True:
     #cv.imwrite('img.jpg', frame)
     x, y = processing(frame)
 
-    speed = {
-        1 :-200 + 0.05*x,
-        2 : 200 + 0.05*x
-    }
-
+    if x==None:
+       speed={1:0,2:0}
+       dxl_io.set_moving_speed(speed)
+       exit()
+    
+    speed = {1 :-400 + x,2 : 400 + x}
     print(speed)
 
     dxl_io.set_moving_speed(speed)
-    
-    cv.imshow('frame', frame)
+ 
     if cv.waitKey(1) == ord('q'):
         break
 

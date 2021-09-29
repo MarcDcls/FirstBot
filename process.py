@@ -2,9 +2,10 @@ import cv2 as cv
 import numpy as np
 from time import time
 
+
 max_value = 255
-max_value_H = 20
-low_H = 0
+max_value_H = 200
+low_H = 100
 low_S = 0
 low_V = 0
 high_H = max_value_H
@@ -13,9 +14,10 @@ high_V = max_value
 
 
 def threshold(image):
-
+   
     image = cv.cvtColor(image, cv.COLOR_BGR2HSV)
-    image = cv.inRange(image, (low_H, low_S, low_V), (high_H, high_S, high_V))
+    image = cv.inRange(image, (low_H,low_S,low_V),(high_H,high_S,high_V))
+
 
     structElt = cv.getStructuringElement(cv.MORPH_ELLIPSE, (5, 5))
     image = cv.erode(image, structElt)
@@ -36,7 +38,8 @@ def get_centroid(image):
         cy = int(M['m01']/M['m00'])
     except:
         print("No line detected (end).")
-        exit()
+        return None,None
+	 
 
     height, width = image.shape
     cx -= width/2
