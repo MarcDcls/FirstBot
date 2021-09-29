@@ -28,18 +28,19 @@ print('Found ids:', found_ids)
 ids = found_ids[:2]
 dxl_io.enable_torque(ids)
 
-speed = {
-    1 : -300,
-    2 : 300
-}
+default_speed = 300
 
+speed = {
+    1 : -default_speed,
+    2 : default_speed
+}
 
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
 
-list_speed = [(-200,200)]*30
+list_speed = [(-default_speed,default_speed)]*30
 
 
 while True:
@@ -59,7 +60,7 @@ while True:
 
     else:
 
-        speed = {1 :-300 +0.8* x,2 : 300 +0.8* x}
+        speed = {1 :-default_speed +0.8* x,2 : default_speed +0.8* x}
         del list_speed[0]
         list_speed.append(speed)
         print(speed)
