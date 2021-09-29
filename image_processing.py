@@ -1,16 +1,32 @@
 import cv2 as cv
 import numpy as np
 from time import time
+import json
 
 
 max_value = 255
-max_value_H = 200
-low_H = 100
+low_H = 0
 low_S = 0
 low_V = 0
-high_H = max_value_H
+high_H = max_value
 high_S = max_value
 high_V = max_value
+
+
+def init_color(color: str):
+    global low_H, high_H
+
+    with open("colors.json") as f:
+        colors = json.load(f)
+        if not color in colors:
+            print("Color does not exist")
+            exit()
+
+        values = colors[color]
+
+        low_H = values["low_H"]
+        high_H = values["high_H"]
+        print(low_H, high_H)
 
 
 def threshold(image):
