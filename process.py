@@ -21,7 +21,7 @@ def threshold(image):
     image = cv.erode(image, structElt)
     image = cv.dilate(image, structElt)
 
-    cv.imwrite('1_threshold.jpg', image)
+    #cv.imwrite('1_threshold.jpg', image)
 
     return image
 
@@ -37,6 +37,9 @@ def get_centroid(image):
     except:
         print("No line detected (end).")
         exit()
+
+    height, width = image.shape
+    cx -= width/2
 
     return cx, cy
 
@@ -55,8 +58,10 @@ def processing(image):
     print("Temps total :", total, "s")
     print("(fréquence :", np.ceil(1/total), "Hz)")
 
-    cv.circle(image, (x, y), 5, (0, 0, 255), -1)
-    cv.imwrite('2_centroid.jpg', image)
+    #cv.circle(image, (x, y), 5, (0, 0, 255), -1)
+    #cv.imwrite('2_centroid.jpg', image)
+
+    return x, y
 
 
 if __name__ == "__main__":
