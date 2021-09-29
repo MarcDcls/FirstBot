@@ -29,8 +29,8 @@ ids = found_ids[:2]
 dxl_io.enable_torque(ids)
 
 speed = {
-    1 : -200,
-    2 : 200
+    1 : -300,
+    2 : 300
 }
 
 
@@ -53,16 +53,18 @@ while True:
     x, y = processing(frame)
 
     if x==None:
-       #speed={1:0,2:0}
-       mean_speed = {1:np.mean(list_speed,axis=0),2:np.mean(list_speed,axis=1)}
-       dxl_io.set_moving_speed(mean_speed)
-    
-    speed = {1 :-200 + 0.5*x,2 : 200 + 0.5*x}
-    del list_speed[0]
-    list_speed.append(speed)
-    print(speed)
+        #speed={1:0,2:0}
+        mean_speed = {1:np.mean(list_speed,axis=0),2:np.mean(list_speed,axis=1)}
+        dxl_io.set_moving_speed(mean_speed)
 
-    dxl_io.set_moving_speed(speed)
+    else:
+
+        speed = {1 :-300 +0.8* x,2 : 300 +0.8* x}
+        del list_speed[0]
+        list_speed.append(speed)
+        print(speed)
+
+        dxl_io.set_moving_speed(speed)
  
     if cv.waitKey(1) == ord('q'):
         break
