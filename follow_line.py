@@ -1,9 +1,15 @@
 import cv2 as cv
-from process import processing
+from image_processing import processing, init_color
 import pypot.dynamixel
-import itertools
-import numpy
-import time
+import sys
+
+
+line_color = "blue"
+nb_args = len(sys.argv)
+if nb_args > 1:
+    line_color = sys.argv[1]
+
+init_color(line_color)
 
 
 ports = pypot.dynamixel.get_available_ports()
@@ -21,12 +27,18 @@ print('Found ids:', found_ids)
 
 ids = found_ids[:2]
 dxl_io.enable_torque(ids)
+
+speed = {
+    1 : -200,
+    2 : 200
+}
+
+
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
-    
-speed = {1 :-200 ,2 : 200 }
+
 
 while True:
     # Capture frame-by-frame
