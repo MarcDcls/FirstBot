@@ -51,7 +51,7 @@ while T > 0:
 
     diff_l = new_pl - old_pl
     diff_r = old_pr - new_pr
-    print("L :", diff_l, "R :", diff_r)
+    # print("L :", diff_l, "R :", diff_r)
 
     # if diff_l > 180:
     #     if new_pl < old_pl:
