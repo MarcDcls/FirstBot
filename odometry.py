@@ -7,7 +7,7 @@ from kinematic import *
 
 ################################### TIMER ###################################
 
-T = 30
+T = 10
 
 ############################### RETURN VALUES ###############################
 
@@ -32,10 +32,13 @@ found_ids = dxl_io.scan([1, 2])
 print('Found ids:', found_ids)
 
 ids = found_ids[:2]
-
+dxl_io.disable_torque(ids)
 current = time.time()
+first_position = dxl_io.get_present_position(ids)
+print("first position : ",first_position)
 while T > 0:
     w_l, w_r = dxl_io.get_moving_speed(ids)
+   
     v, w = direct_kinematics(w_l, w_r)
 
     dt = time.time() - current
@@ -44,4 +47,7 @@ while T > 0:
 
     X, Y, THETA = kinematic.tick_odom(X, Y, THETA, v, w, dt)
 
-print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
+    #print("X :", X, "\nY :", Y, "\nTHETA :", THETA,"\nw_l : ",w_l,"\nw_r :",w_r)
+
+last_position = dxl_io.get_present_position(ids)
+print("last position : ",last_position)
