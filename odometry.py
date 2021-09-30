@@ -17,7 +17,7 @@ THETA = 0
 
 #############################################################################
 
-FRAMERATE = 1 # / 30
+FRAMERATE = 1 / 30
 
 ports = pypot.dynamixel.get_available_ports()
 if not ports:
