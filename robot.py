@@ -31,9 +31,9 @@ class Robot:
             return 0, v * dt, 0  # Case of a straight line
 
         distance = v * dt
-        self.theta += w * dt
-        self.x += distance * np.cos(self.theta)
-        self.y += distance * np.sin(self.theta)
+        self.theta = self.theta + w * dt
+        self.x = self.x + distance * np.cos(self.theta)
+        self.y = self.y + distance * np.sin(self.theta)
         return
 
     # def tick_odom(self, x, y, theta, v, w, dt):
