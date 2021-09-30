@@ -2,7 +2,16 @@ import cv2 as cv
 from image_processing import processing, init_color
 import pypot.dynamixel
 import sys
+import numpy as np
 
+def mean(list_speed):
+    sum_1 = 0
+    sum_2 = 0
+    l = len(list_speed)
+    for i in range(l):
+        sum_1 += list_speed[i][0]
+        sum_2 += list_speed[i][1]
+    return sum_1/l, sum_2/l
 
 line_color = "blue"
 nb_args = len(sys.argv)
@@ -28,48 +37,54 @@ print('Found ids:', found_ids)
 ids = found_ids[:2]
 dxl_io.enable_torque(ids)
 
-default_speed = 300
+default_speed = 200
 
-speed = {
-    1 : -default_speed,
-    2 : default_speed
-}
+speed = (-default_speed, default_speed)
 
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
 
-list_speed = [(-default_speed,default_speed)]*30
+list_speed = [speed]*30
 
 
-while True:
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    if not ret:
-        print("Can't receive frame (stream end?).")
-        continue
+try:
+    while True:
+        
+        ret, frame = cap.read()
+        if not ret:
+            print("Can't receive frame (stream end?).")
+            continue
 
-    #cv.imwrite('img.jpg', frame)
-    x, y = processing(frame)
+        x, y = processing(frame)
 
-    if x==None:
-        #speed={1:0,2:0}
-        mean_speed = {1:np.mean(list_speed,axis=0),2:np.mean(list_speed,axis=1)}
-        dxl_io.set_moving_speed(mean_speed)
+        if x == None:
+            mean_1, mean_2 = mean(list_speed)
+            mean_speed = {
+                1: mean_1,
+                2: mean_2
+            }
+            dxl_io.set_moving_speed(mean_speed)
 
-    else:
+        else:
 
-        speed = {1 :-default_speed +0.8* x,2 : default_speed +0.8* x}
-        del list_speed[0]
-        list_speed.append(speed)
-        print(speed)
+            speed = (
+                -default_speed + 0.4*x,
+                default_speed + 0.4*x
+            )
+            del list_speed[0]
+            list_speed.append(speed)
+            print(speed)
 
-        dxl_io.set_moving_speed(speed)
- 
-    if cv.waitKey(1) == ord('q'):
-        break
+            dxl_io.set_moving_speed({
+                1: speed[0],
+                2: speed[1]
+            })
 
-# When everything done, release the capture
-cap.release()
-cv.destroyAllWindows()
+except:
+    speed = {1:0, 2:0}
+    dxl_io.set_moving_speed(speed)
+    cap.release()
+    exit()
+

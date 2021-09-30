@@ -1,10 +1,10 @@
 {
     "blue": {
         "low_H": 100,
-        "high_H": 200
+        "high_H": 250
     },
     "red": {
         "low_H": 0,
-        "high_H": 20
+        "high_H": 10
     }
 }
