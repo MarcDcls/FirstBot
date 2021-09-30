@@ -17,6 +17,7 @@ THETA = 0
 
 #############################################################################
 
+FRAMERATE = 1 / 30
 
 ports = pypot.dynamixel.get_available_ports()
 if not ports:
@@ -64,4 +65,6 @@ while T > 0:
     X, Y, THETA = kinematic.tick_odom(X, Y, THETA, v, w, dt)
 
     print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
+
+    time.sleep(FRAMERATE)
 
