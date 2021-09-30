@@ -41,8 +41,9 @@ print("first position : ", first_position)
 new_pr, new_pl = dxl_io.get_present_position(ids)
 
 # positions = []
-
+i = 0
 while T > 0:
+    i += 1
     old_pl = new_pl
     old_pr = new_pr
     new_pr, new_pl = dxl_io.get_present_position(ids)
@@ -77,7 +78,9 @@ while T > 0:
 
     # positions.append((X, Y, THETA))
 
-    print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
+    if i / 30 == 1:
+        print("v, w :", v, w)
+        print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
     time.sleep(FRAMERATE)
 
