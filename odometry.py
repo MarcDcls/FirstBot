@@ -32,8 +32,8 @@ try:
     robot = Robot()
     current_time = time.time()
 
-    # i = 0
-    # j = 1
+    i = 0
+    j = 1
     while T > 0:
         # i += 1
         w_r, w_l = dxl_io.get_present_speed(ids)
