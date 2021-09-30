@@ -68,16 +68,16 @@ while T > 0:
     current += dt
     T -= dt
 
-    speed_l = diff_l * (np.pi / 180) / dt
-    speed_r = diff_r * (np.pi / 180) / dt
+    w_l = diff_l * (np.pi / 180) / dt
+    w_r = diff_r * (np.pi / 180) / dt
 
-    v, w = direct_kinematics(speed_l, speed_r)
+    v, w = direct_kinematics(w_l, w_r)
 
     X, Y, THETA = kinematic.tick_odom(X, Y, THETA, v, w, dt)
 
     # positions.append((X, Y, THETA))
 
-    # print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
+    print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
     time.sleep(FRAMERATE)
 
