@@ -28,32 +28,36 @@ print('Found ids:', found_ids)
 ids = found_ids[:2]
 dxl_io.disable_torque(ids)
 
+try:
+    robot = Robot()
+    current_time = time.time()
 
-robot = Robot()
-current_time = time.time()
+    # i = 0
+    # j = 1
+    while T > 0:
+        # i += 1
+        w_r, w_l = dxl_io.get_present_speed(ids)
+        w_r, w_l = - w_r * (np.pi / 180), w_l * (np.pi / 180)
+        v, w = direct_kinematics(w_l, w_r)
+        # print("SPEED :", w_r, w_l)
 
-i = 0
-j = 1
-while T > 0:
-    i += 1
-    w_r, w_l = dxl_io.get_present_speed(ids)
-    w_r, w_l = - w_r * (np.pi / 180), w_l * (np.pi / 180)
-    v, w = direct_kinematics(w_l, w_r)
-    # print("SPEED :", w_r, w_l)
+        dt = time.time() - current_time
+        current_time += dt
+        T -= dt
 
-    dt = time.time() - current_time
-    current_time += dt
-    T -= dt
+        robot.odom(v, w, dt)
 
-    robot.odom(v, w, dt)
+        # if i / 100 == j:
+        #     j += 1
+        #     # print("v, w :", v, w)
+        #     print("X :", robot.x, "\nY :", robot.y, "\nTHETA :", robot.theta)
 
-    # X, Y, THETA = tick_odom(X, Y, THETA, v, w, dt)
+        time.sleep(FRAMERATE)
 
-    if i / 100 == j:
-        j += 1
-        # print("v, w :", v, w)
-        print("X :", robot.x, "\nY :", robot.y, "\nTHETA :", robot.theta)
+    # print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
-    # time.sleep(FRAMERATE)
+except KeyboardInterrupt:
+    speed = {1:0, 2:0}
+    dxl_io.set_moving_speed(speed)
+    exit()
 
-# print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
