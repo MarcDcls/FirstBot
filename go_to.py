@@ -6,9 +6,9 @@ from robot import *
 
 ################################ DESTINATION ################################
 
-X = 0
+X = 1
 Y = 1
-THETA = 0
+THETA = - np.pi / 2
 
 ################################# VARIABLES #################################
 
@@ -37,6 +37,7 @@ dxl_io.enable_torque(ids)
 try:
     robot = Robot()
     current_time = time.time()
+    initial_distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
 
     while abs(X - robot.x) > 0.03 or abs(Y - robot.y) > 0.03:
         distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
@@ -48,16 +49,16 @@ try:
         print("v, w :", v, w)
 
         w_l, w_r = inverse_kinematics(v, w)
-        speed = {1: - w_r * 180 / np.pi, 2: w_l * 180 / np.pi}
-        print("Speed :", speed)
+        speed = {1: - w_r * 180 / np.pi * (initial_distance - distance),
+                 2: w_l * 180 / np.pi * (initial_distance - distance)}
+        # print("Speed :", speed)
         dxl_io.set_moving_speed(speed)
 
         dt = time.time() - current_time
         current_time += dt
-        print("dt :", dt)
 
         robot.odom(v, w, dt)
-        print("x, y, theta :", robot.x, robot.y, robot.theta)
+        # print("x, y, theta :", robot.x, robot.y, robot.theta)
         time.sleep(FRAMERATE)
 
     speed = {1: 0, 2: 0}
