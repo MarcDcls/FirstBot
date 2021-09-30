@@ -43,8 +43,12 @@ while T > 0:
     old_pl = new_pl
     old_pr = new_pr
     new_pl, new_pr = dxl_io.get_present_position(ids)
-    diff_l = new_pl-old_pl
-    diff_r = new_pr-old_pr
+    diff_l = abs(new_pl-old_pl)
+    diff_r = abs(new_pr-old_pr)
+
+    if diff_l > 350:
+        diff_l = 0
+        diff_r = 0
 
     dt = time.time() - current
     current += dt
