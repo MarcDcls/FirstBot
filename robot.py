@@ -1,7 +1,7 @@
 from kinematic import *
 
 class Robot:
-    theta = np.pi / 2
+    theta = 0
     x = 0
     y = 0
 
@@ -30,8 +30,8 @@ class Robot:
 
         distance = v * dt
         self.theta = self.theta + w * dt
-        self.x = self.x + distance * np.cos(self.theta)
-        self.y = self.y + distance * np.sin(self.theta)
+        self.x = self.x + distance * np.cos(np.pi / 2 + self.theta)
+        self.y = self.y + distance * np.sin(np.pi / 2 + self.theta)
         return
 
     # def tick_odom(self, x, y, theta, v, w, dt):
