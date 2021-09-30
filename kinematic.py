@@ -12,10 +12,10 @@ def direct_kinematics(w_l, w_r):
     :param w_r: right wheel speed
     :return: (v, w) linear and angular speeds of the robot
 
-    >>> abs(direct_kinematics(0, 2 * np.pi)[1])
+    >>> abs(direct_kinematics(0, 2 * np.pi)[1] - np.pi * D / d) < 0.0001
     True
-    >>> np.pi * D / d
-    0
+    >>> abs(direct_kinematics(2 * np.pi, 2 * np.pi)[0] - np.pi * D) < 0.0001
+    True
     >>> abs(direct_kinematics(-1, 1)[0]) < 0.0001
     True
     >>> abs(direct_kinematics(-1, 1)[1] - D / d) < 0.0001
