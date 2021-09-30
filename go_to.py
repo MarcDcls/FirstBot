@@ -15,7 +15,7 @@ THETA = - np.pi / 2
 FRAMERATE = 1 / 30
 
 LINEAR_FACTOR = 0.1 # 0.5
-ANGULAR_FACTOR = - 0.1
+ANGULAR_FACTOR = - 1
 
 ports = pypot.dynamixel.get_available_ports()
 if not ports:
@@ -45,13 +45,13 @@ try:
 
         angle = np.arctan2(Y - robot.y, X - robot.x) - np.pi / 2
         w = ANGULAR_FACTOR * angle
-        # print("angle :", angle)
-        print("v, w :", v, w)
+        print("angle :", angle)
+        # print("v, w :", v, w)
 
         w_l, w_r = inverse_kinematics(v, w)
         speed = {1: - w_l * 180 / np.pi, # * (initial_distance - distance),
                  2: w_r * 180 / np.pi} # * (initial_distance - distance)}
-        print("Speed :", speed)
+        # print("Speed :", speed)
         dxl_io.set_moving_speed(speed)
 
         dt = time.time() - current_time
