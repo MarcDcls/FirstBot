@@ -36,22 +36,28 @@ dxl_io.disable_torque(ids)
 current = time.time()
 first_position = dxl_io.get_present_position(ids)
 print("first position : ",first_position)
-"""while T > 0:
-    w_l, w_r = dxl_io.get_moving_speed(ids)
-   
-    v, w = direct_kinematics(w_l, w_r)
+
+old_pl, old_pr = dxl_io.get_present_position(ids)
+
+while T > 0:
+    old_pl = new_pl
+    old_pr = new_pr
+    new_pl, new_pr = dxl_io.get_present_position(ids)
+    diff_l = new_pl-old_pl
+    diff_r = new_pr-old_pr
 
     dt = time.time() - current
     current += dt
     T -= dt
 
+    speed_l = diff_l / dt
+    speed_r = diff_r / dt
+    speed_l *= (math.pi/180)
+    speed_r *= (math.pi/180)
+
+    v, w = direct_kinematics(speed_l, speed_r)
+
     X, Y, THETA = kinematic.tick_odom(X, Y, THETA, v, w, dt)
 
-    #print("X :", X, "\nY :", Y, "\nTHETA :", THETA,"\nw_l : ",w_l,"\nw_r :",w_r)"""
+    print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
-time.sleep(10)
-
-last_position = dxl_io.get_present_position(ids)
-distance = math.sqrt((last_position[0]-first_position[0])*(last_position[0]-first_position[0]) + (last_position[1]-first_position[1])*(last_position[1]-first_position[1]))
-print("last position : ",last_position)
-print(distance)
