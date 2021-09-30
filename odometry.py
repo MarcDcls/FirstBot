@@ -84,10 +84,12 @@ while T > 0:
 
     if i / 100 == j:
         j += 1
-        print("v, w :", v, w)
-        # print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
+        # print("v, w :", v, w)
+        print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
     time.sleep(FRAMERATE)
+
+# print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
 # with open("positions.json", 'x') as f:
 #     json.dump(positions, f)
