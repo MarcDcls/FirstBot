@@ -47,7 +47,7 @@ try:
 
         angle =  np.pi / 2 - np.arctan2(Y - robot.y, X - robot.x) - robot.theta
         w = ANGULAR_FACTOR * angle
-        print("angle :", angle)
+        # print("angle :", angle)
         # print("v, w :", v, w)
 
         w_l, w_r = inverse_kinematics(v, w)
