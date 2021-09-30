@@ -12,7 +12,6 @@ THETA = 0
 ################################# VARIABLES #################################
 
 FRAMERATE = 1 / 30
-MOTOR_SPEED = 200
 
 LINEAR_FACTOR = 0.02
 ANGULAR_FACTOR = 2
@@ -48,7 +47,7 @@ while abs(X - robot.x) > 0.03 or abs(Y - robot.y) > 0.03:
 	# print("v, w :", v, w)
 
 	w_l, w_r = inverse_kinematics(v, w)
-	speed = {1: w_l, 2: w_r}
+	speed = {1: - w_r * 180 / np.pi, 2: w_l * 180 / np.pi}
 	print("Speed :", speed)
 	dxl_io.set_moving_speed(speed)
 
