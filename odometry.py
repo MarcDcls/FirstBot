@@ -1,4 +1,4 @@
-import time
+import time, math
 
 import pypot.dynamixel
 
@@ -36,7 +36,7 @@ dxl_io.disable_torque(ids)
 current = time.time()
 first_position = dxl_io.get_present_position(ids)
 print("first position : ",first_position)
-while T > 0:
+"""while T > 0:
     w_l, w_r = dxl_io.get_moving_speed(ids)
    
     v, w = direct_kinematics(w_l, w_r)
@@ -47,7 +47,11 @@ while T > 0:
 
     X, Y, THETA = kinematic.tick_odom(X, Y, THETA, v, w, dt)
 
-    #print("X :", X, "\nY :", Y, "\nTHETA :", THETA,"\nw_l : ",w_l,"\nw_r :",w_r)
+    #print("X :", X, "\nY :", Y, "\nTHETA :", THETA,"\nw_l : ",w_l,"\nw_r :",w_r)"""
+
+time.sleep(10)
 
 last_position = dxl_io.get_present_position(ids)
+distance = math.sqrt((last_position[0]-first_position[0])*(last_position[0]-first_position[0]) + (last_position[1]-first_position[1])*(last_position[1]-first_position[1]))
 print("last position : ",last_position)
+print(distance)
