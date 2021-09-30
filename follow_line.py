@@ -82,7 +82,7 @@ try:
                 2: speed[1]
             })
 
-except:
+except KeyboardInterrupt:
     speed = {1:0, 2:0}
     dxl_io.set_moving_speed(speed)
     cap.release()
