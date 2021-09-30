@@ -36,16 +36,15 @@ i = 0
 j = 1
 while T > 0:
     i += 1
+    w_r, w_l = dxl_io.get_present_speed(ids)
+    w_r, w_l = - w_r * (np.pi / 180), w_l * (np.pi / 180)
+    v, w = direct_kinematics(w_l, w_r)
+    # print("SPEED :", w_r, w_l)
 
     dt = time.time() - current_time
     current_time += dt
     T -= dt
 
-    w_r, w_l = dxl_io.get_present_speed(ids)
-    w_r, w_l = - w_r * (np.pi / 180), w_l * (np.pi / 180)
-    # print("SPEED :", w_r, w_l)
-
-    v, w = direct_kinematics(w_l, w_r)
     robot.odom(v, w, dt)
 
     # X, Y, THETA = tick_odom(X, Y, THETA, v, w, dt)
@@ -55,6 +54,6 @@ while T > 0:
         # print("v, w :", v, w)
         print("X :", robot.x, "\nY :", robot.y, "\nTHETA :", robot.theta)
 
-    time.sleep(FRAMERATE)
+    # time.sleep(FRAMERATE)
 
 # print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
