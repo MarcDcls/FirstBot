@@ -81,8 +81,8 @@ def odom(v, w, dt):
 
     # r = v / w
     dtheta = w * dt
-    dx = v * np.cos(dtheta)
-    dy = v * np.sin(dtheta)
+    dx = v * dt * np.cos(dtheta)
+    dy = v * dt * np.sin(dtheta)
     return dx, dy, dtheta
 
 
