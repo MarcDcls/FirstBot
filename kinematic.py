@@ -56,53 +56,6 @@ def direct_kinematics(w_l, w_r):
     return v, w
 
 
-def odom(v, w, dt):
-    """
-    Takes as parameters linear and angular speed of the robot, and returns the position (m) and orientation (rad)
-    variation in the robot frame
-
-    :param v: linear velocity of the robot
-    :param w: angular speed of the robot
-    :param dt: time duration
-    :return: (dx, dy, dtheta) the variation of x, y, and theta during dt
-
-    >>> abs(odom(0, np.pi / 2, 1)[0]) < 0.0001
-    True
-    >>> abs(odom(0, np.pi / 2, 1)[1]) < 0.0001
-    True
-    >>> abs(odom(0, np.pi / 2, 1)[2] - np.pi / 2) < 0.0001
-    True
-    """
-    # Exceptions
-    if w == 0:
-        if v == 0:
-            return 0, 0, 0  # No motion
-        return 0, v * dt, 0  # Case of a straight line
-
-    r = v / w
-    dtheta = w * dt
-    dx = r * (np.cos(dtheta) - 1)
-    dy = r * (np.sin(dtheta) - 1)
-    return dx, dy, dtheta
-
-
-def tick_odom(x, y, theta, v, w, dt):
-    """
-    Takes as parameters the position and orientation of the robot in the world frame, the variation of the robot
-    position and orientation in the robot frame, and returns new position and orientation of the robot in the world frame
-
-    :param x: current x coordinate of the robot in the world
-    :param y: current y coordinate of the robot in the world
-    :param theta: current angle of the robot in the world
-    :param v: linear velocity of the robot
-    :param w: angular velocity of the robot
-    :param dt: time duration
-    :return: new x, new y, new theta
-    """
-    dx, dy, dtheta = odom(v, w, dt)
-    return x + dx, y + dy, theta + dtheta
-
-
 def inverse_kinematics(v, w):
     """
     Takes as parameters the linear and angular target speeds, and computes the speed for left and right wheels
@@ -147,17 +100,6 @@ def inverse_kinematics(v, w):
     w_l = 2 * v * r_l / (D * r)
     w_r = 2 * v * r_r / (D * r)
     return w_l, w_r
-
-
-def go_to(x, y, theta):
-    """
-    Takes the robot to a given position in the world frame
-
-    :param x: target x coordinate
-    :param y: target y coordinate
-    :param theta:
-    :return: None
-    """
 
 
 ################################### TESTS ###################################

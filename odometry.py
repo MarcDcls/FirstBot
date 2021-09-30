@@ -2,18 +2,11 @@ import time
 
 import pypot.dynamixel
 
-import kinematic
-from kinematic import *
+from robot import *
 
 ################################### TIMER ###################################
 
 T = 20
-
-############################### RETURN VALUES ###############################
-
-X = 0
-Y = 0
-THETA = 0
 
 #############################################################################
 
@@ -38,22 +31,26 @@ current = time.time()
 first_position = dxl_io.get_present_position(ids)
 print("first position : ", first_position)
 
-new_pr, new_pl = dxl_io.get_present_position(ids)
+
+
+robot = Robot()
+
+# new_pr, new_pl = dxl_io.get_present_position(ids)
 
 # positions = []
 i = 0
 j = 1
 while T > 0:
     i += 1
-    old_pl = new_pl
-    old_pr = new_pr
-    new_pr, new_pl = dxl_io.get_present_position(ids)
-    # print("angle relatif droite :", first_position[0] - new_pr)
-    # print("angle relatif gauche :", new_pl - first_position[1])
-
-    diff_l = new_pl - old_pl
-    diff_r = old_pr - new_pr
-    # print("L :", diff_l, "R :", diff_r)
+    # old_pl = new_pl
+    # old_pr = new_pr
+    # new_pr, new_pl = dxl_io.get_present_position(ids)
+    # # print("angle relatif droite :", first_position[0] - new_pr)
+    # # print("angle relatif gauche :", new_pl - first_position[1])
+    #
+    # diff_l = new_pl - old_pl
+    # diff_r = old_pr - new_pr
+    # # print("L :", diff_l, "R :", diff_r)
 
     # if diff_l > 180:
     #     if new_pl < old_pl:
@@ -70,22 +67,23 @@ while T > 0:
     current += dt
     T -= dt
 
-    w_l = diff_l * (np.pi / 180) / dt
-    w_r = diff_r * (np.pi / 180) / dt
+    # w_l = diff_l * (np.pi / 180) / dt
+    # w_r = diff_r * (np.pi / 180) / dt
 
-    # w_r, w_l = dxl_io.get_present_speed(ids)
-    # w_r, w_l = w_r * (np.pi / 180), w_l * (np.pi / 180)
+    w_r, w_l = dxl_io.get_present_speed(ids)
+    w_r, w_l = w_r * (np.pi / 180), w_l * (np.pi / 180)
 
     v, w = direct_kinematics(w_l, w_r)
+    robot.odom(v, w, dt)
 
-    X, Y, THETA = kinematic.tick_odom(X, Y, THETA, v, w, dt)
+    # X, Y, THETA = tick_odom(X, Y, THETA, v, w, dt)
 
     # positions.append((X, Y, THETA))
 
     if i / 100 == j:
         j += 1
         # print("v, w :", v, w)
-        print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
+        print("X :", robot.x, "\nY :", robot.y, "\nTHETA :", robot.theta)
 
     time.sleep(FRAMERATE)
 
