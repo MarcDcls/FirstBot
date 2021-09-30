@@ -38,11 +38,11 @@ dxl_io.enable_torque(ids)
 robot = Robot()
 
 current_time = time.time()
-while abs(X - x) > 0.03 or abs(Y - y) > 0.03:
-	distance = np.sqrt((X - x) ** 2 + (Y - y) ** 2)
+while abs(X - robot.x) > 0.03 or abs(Y - robot.y) > 0.03:
+	distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
 	v = LINEAR_FACTOR * distance
 
-	angle = np.arctan2(Y - y, X - x) - np.pi / 2
+	angle = np.arctan2(Y - robot.y, X - robot.x) - np.pi / 2
 	w = ANGULAR_FACTOR * angle
 	# print("angle :", angle)
 	# print("v, w :", v, w)
