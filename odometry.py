@@ -39,15 +39,15 @@ current = time.time()
 first_position = dxl_io.get_present_position(ids)
 print("first position : ", first_position)
 
-new_pl, new_pr = dxl_io.get_present_position(ids)
+new_pr, new_pl = dxl_io.get_present_position(ids)
 
 # positions = []
 
 while T > 0:
     old_pl = new_pl
     old_pr = new_pr
-    new_pl, new_pr = dxl_io.get_present_position(ids)
-    print("angle relatif gauche :", new_pl - first_position[0])
+    new_pr, new_pl = dxl_io.get_present_position(ids)
+    print("angle relatif gauche :", first_position[1] - new_pl)
 
     diff_l = abs(new_pl - old_pl)
     diff_r = abs(new_pr - old_pr)
