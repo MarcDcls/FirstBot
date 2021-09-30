@@ -16,6 +16,7 @@ FRAMERATE = 1 / 30
 
 LINEAR_FACTOR = 0.1 # 0.5
 ANGULAR_FACTOR = 1
+DELTA = 0.1
 
 ports = pypot.dynamixel.get_available_ports()
 if not ports:
@@ -39,7 +40,7 @@ try:
     current_time = time.time()
     initial_distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
 
-    while abs(X - robot.x) > 0.03 or abs(Y - robot.y) > 0.03:
+    while abs(X - robot.x) > DELTA or abs(Y - robot.y) > DELTA:
         distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
         v = LINEAR_FACTOR * distance
 
