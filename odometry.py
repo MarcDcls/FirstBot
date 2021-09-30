@@ -27,13 +27,13 @@ print('Found ids:', found_ids)
 
 ids = found_ids[:2]
 dxl_io.disable_torque(ids)
-current = time.time()
-first_position = dxl_io.get_present_position(ids)
-print("first position : ", first_position)
+
+
 
 
 
 robot = Robot()
+current_time = time.time()
 
 new_pr, new_pl = dxl_io.get_present_position(ids)
 
@@ -52,26 +52,17 @@ while T > 0:
     diff_r = old_pr - new_pr
     # print("L :", diff_l, "R :", diff_r)
 
-    # if diff_l > 180:
-    #     if new_pl < old_pl:
-    #         diff_l = (new_pl - old_pl) % 360
-    #     else:
-    #         diff_l = (old_pl - new_pl) % 360
-    # if diff_r > 180:
-    #     if new_pr < old_pr:
-    #         diff_r = (new_pr - old_pr) % 360
-    #     else:
-    #         diff_r = (old_pr - new_pr) % 360
-
-    dt = time.time() - current
-    current += dt
+    dt = time.time() - current_time
+    current_time += dt
     T -= dt
 
     w_l = diff_l * (np.pi / 180) / dt
     w_r = diff_r * (np.pi / 180) / dt
+    print("POS :", w_r, w_l)
 
-    # w_r, w_l = dxl_io.get_present_speed(ids)
-    # w_r, w_l = w_r * (np.pi / 180), w_l * (np.pi / 180)
+    w_r, w_l = dxl_io.get_present_speed(ids)
+    w_r, w_l = w_r * (np.pi / 180), w_l * (np.pi / 180)
+    print("SPEED :", w_r, w_l)
 
     v, w = direct_kinematics(w_l, w_r)
     robot.odom(v, w, dt)
