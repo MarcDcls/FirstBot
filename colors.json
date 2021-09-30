@@ -1,10 +1,26 @@
 {
     "blue": {
         "low_H": 100,
-        "high_H": 140
+        "high_H": 160,
+        "low_S": 80,
+        "low_V": 60,
+        "speed": 600,
+        "p": 0.8
     },
     "red": {
         "low_H": 0,
-        "high_H": 10
+        "high_H": 20,
+        "low_S": 0,
+        "low_V": 0,
+        "speed": 300,
+        "p": 1,
+        "structuring_element": 20
+    },
+    "yellow": {
+        "low_H": 20,
+        "high_H": 100,
+        "low_S": 60,
+        "low_V": 60,
+        "structuring_element": 30
     }
 }
