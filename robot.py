@@ -1,7 +1,7 @@
 from kinematic import *
 
 class Robot:
-    theta = - np.pi / 2
+    theta = np.pi / 2
     x = 0
     y = 0
 
