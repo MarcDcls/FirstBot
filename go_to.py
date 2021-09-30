@@ -1,11 +1,11 @@
 import time
+import pypot.dynamixel
 
-import kinematic
-from kinematic import *
+from robot import *
 
 ################################ DESTINATION ################################
 
-X = 1
+X = 0
 Y = 1
 THETA = 0
 
@@ -17,52 +17,46 @@ MOTOR_SPEED = 200
 LINEAR_FACTOR = 0.02
 ANGULAR_FACTOR = 2
 
-# ports = pypot.dynamixel.get_available_ports()
-# if not ports:
-# 	exit('No port')
-#
-# port = ports[0]
-# print('Using the first on the list', port)
-#
-# dxl_io = pypot.dynamixel.DxlIO(port)
-# print('Connected!')
-#
-# found_ids = dxl_io.scan([1,2])
-# print('Found ids:', found_ids)
-#
-# ids = found_ids[:2]
-#
-# dxl_io.enable_torque(ids)
-#
-# speed = dict(zip(ids, itertools.repeat(1)))
-# dxl_io.set_moving_speed(speed)
+ports = pypot.dynamixel.get_available_ports()
+if not ports:
+	exit('No port')
+
+port = ports[0]
+print('Using the first on the list', port)
+
+dxl_io = pypot.dynamixel.DxlIO(port)
+print('Connected!')
+
+found_ids = dxl_io.scan([1,2])
+print('Found ids:', found_ids)
+
+ids = found_ids[:2]
+
+dxl_io.enable_torque(ids)
 
 
-x = 0
-y = 0
-theta = 0
-t1 = time.time()
-i = 0
+robot = Robot()
+
+current_time = time.time()
 while abs(X - x) > 0.03 or abs(Y - y) > 0.03:
-	i += 1
 	distance = np.sqrt((X - x) ** 2 + (Y - y) ** 2)
 	v = LINEAR_FACTOR * distance
+
 	angle = np.arctan2(Y - y, X - x) - np.pi / 2
-	# print("angle :", angle)
 	w = ANGULAR_FACTOR * angle
-	print("v, w :", v, w)
-	w_l, w_r = kinematic.inverse_kinematics(v, w)
+	# print("angle :", angle)
+	# print("v, w :", v, w)
+
+	w_l, w_r = inverse_kinematics(v, w)
 	speed = {1: w_l, 2: w_r}
 	# print("Speed :", speed)
-	# dxl_io.set_moving_speed(speed)
+	dxl_io.set_moving_speed(speed)
 
-	t2 = time.time()
-	dt = t1 - t2
-	t1 = t2
+	dt = time.time() - current_time
+	current_time += dt
 
-	x, y, theta = kinematic.tick_odom(x, y, theta, v, w, dt)
-	print("x, y, theta :", x, y, theta)
+	robot.odom(v, w, dt)
+	# print("x, y, theta :", x, y, theta)
 	time.sleep(FRAMERATE)
 
-	if i == 30: break
 
