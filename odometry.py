@@ -73,7 +73,7 @@ while T > 0:
     # w_l = diff_l * (np.pi / 180) / dt
     # w_r = diff_r * (np.pi / 180) / dt
 
-    w_r, w_l = dxl_io.get_present_speed()
+    w_r, w_l = dxl_io.get_present_speed(ids)
 
     v, w = direct_kinematics(w_l, w_r)
 
