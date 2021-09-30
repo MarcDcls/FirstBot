@@ -48,27 +48,12 @@ def direct_kinematics(w_l, w_r):
         return D * w_l / 2, 0
 
     # General Case :
-    direction_w = 1
-    side = 1
-    if w_r > 0:
-        side = - 1
-    if w_l > w_r:
-        direction_w = - 1
-        side = - side
+    v_r = D * w_r / 2
+    v_l = D * w_l / 2
+    v = (v_r + v_l) / 2
+    w = (v_r - v_l) / d
 
-    if w_r == 0:
-        r_l = w_l * d / (w_l - w_r)
-        v_l = D * w_l / 2
-        r = r_l - d / 2
-        v = r * v_l / r_l
-
-    else:
-        r_r = w_r * d / (w_r - w_l)
-        v_r = D * w_r / 2
-        r = r_r + side * d / 2
-        v = r * v_r / r_r
-
-    return v, direction_w * abs(v / r)
+    return v, w
 
 
 def odom(v, w, dt):
@@ -94,10 +79,10 @@ def odom(v, w, dt):
             return 0, 0, 0  # No motion
         return 0, v * dt, 0  # Case of a straight line
 
-    r = v / w
+    # r = v / w
     dtheta = w * dt
-    dx = r * np.cos(dtheta)
-    dy = r * np.sin(dtheta)
+    dx = v * np.cos(dtheta)
+    dy = v * np.sin(dtheta)
     return dx, dy, dtheta
 
 
