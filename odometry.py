@@ -47,7 +47,8 @@ while T > 0:
     old_pl = new_pl
     old_pr = new_pr
     new_pr, new_pl = dxl_io.get_present_position(ids)
-    print("angle relatif gauche :", first_position[1] - new_pl)
+    print("angle relatif droite :", new_pr - first_position[0])
+    print("angle relatif gauche :", new_pl - first_position[1])
 
     diff_l = abs(new_pl - old_pl)
     diff_r = abs(new_pr - old_pr)
