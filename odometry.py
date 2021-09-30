@@ -42,6 +42,7 @@ new_pr, new_pl = dxl_io.get_present_position(ids)
 
 # positions = []
 i = 0
+j = 1
 while T > 0:
     i += 1
     old_pl = new_pl
@@ -78,7 +79,8 @@ while T > 0:
 
     # positions.append((X, Y, THETA))
 
-    if i / 30 == 1:
+    if i / 30 == j:
+        j += 1
         print("v, w :", v, w)
         print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
