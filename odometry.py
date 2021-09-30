@@ -1,4 +1,3 @@
-import json
 import time
 
 import pypot.dynamixel
@@ -18,7 +17,7 @@ THETA = 0
 
 #############################################################################
 
-FRAMERATE = 1 / 30
+FRAMERATE = 1 # / 30
 
 ports = pypot.dynamixel.get_available_ports()
 if not ports:
@@ -47,22 +46,23 @@ while T > 0:
     old_pl = new_pl
     old_pr = new_pr
     new_pr, new_pl = dxl_io.get_present_position(ids)
-    print("angle relatif droite :", new_pr - first_position[0])
-    print("angle relatif gauche :", new_pl - first_position[1])
+    # print("angle relatif droite :", first_position[0] - new_pr)
+    # print("angle relatif gauche :", new_pl - first_position[1])
 
-    diff_l = abs(new_pl - old_pl)
-    diff_r = abs(new_pr - old_pr)
+    diff_l = new_pl - old_pl
+    diff_r = old_pr - new_pr
+    print("L :", diff_l, "R :", diff_r)
 
-    if diff_l > 180:
-        if new_pl < old_pl:
-            diff_l = (new_pl - old_pl) % 360
-        else:
-            diff_l = (old_pl - new_pl) % 360
-    if diff_r > 180:
-        if new_pr < old_pr:
-            diff_r = (new_pr - old_pr) % 360
-        else:
-            diff_r = (old_pr - new_pr) % 360
+    # if diff_l > 180:
+    #     if new_pl < old_pl:
+    #         diff_l = (new_pl - old_pl) % 360
+    #     else:
+    #         diff_l = (old_pl - new_pl) % 360
+    # if diff_r > 180:
+    #     if new_pr < old_pr:
+    #         diff_r = (new_pr - old_pr) % 360
+    #     else:
+    #         diff_r = (old_pr - new_pr) % 360
 
     dt = time.time() - current
     current += dt
