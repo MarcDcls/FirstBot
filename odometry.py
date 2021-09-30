@@ -50,7 +50,7 @@ try:
         # if i / 100 == j:
         #     j += 1
         #     # print("v, w :", v, w)
-        #     print("X :", robot.x, "\nY :", robot.y, "\nTHETA :", robot.theta)
+            print("X :", robot.x, "\nY :", robot.y, "\nTHETA :", robot.theta)
 
         time.sleep(FRAMERATE)
 
