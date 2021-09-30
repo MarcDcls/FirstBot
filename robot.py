@@ -24,9 +24,10 @@ class Robot:
         """
         # Exceptions
         if w == 0:
-            if v == 0:
-                return 0, 0, 0  # No motion
-            return 0, v * dt, 0  # Case of a straight line
+            if v == 0: # No motion
+                return
+            self.y = self.y + v * dt # Case of a straight line
+            return
 
         distance = v * dt
         self.theta = self.theta + w * dt
