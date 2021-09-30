@@ -127,7 +127,7 @@ try:
 
     plt.plot(coordinates_blue[0],coordinates_blue[1],'b')
     plt.plot(coordinates_red[0],coordinates_red[1],'r')
-    plt.savefig('trace_odometry.png')
+    plt.savefig('trace_line.png')
 
 except KeyboardInterrupt:
     speed = {1:0, 2:0}
