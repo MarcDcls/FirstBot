@@ -1,7 +1,7 @@
 import numpy as np
 
 d = 0.014
-D = 0.052
+D = 0.0052
 
 
 def direct_kinematics(w_l, w_r):
@@ -12,27 +12,31 @@ def direct_kinematics(w_l, w_r):
     :param w_r: right wheel speed
     :return: (v, w) linear and angular speeds of the robot
 
+    >>> abs(direct_kinematics(0, 2 * np.pi)[1])
+    True
+    >>> np.pi * D / d
+    0
     >>> abs(direct_kinematics(-1, 1)[0]) < 0.0001
     True
     >>> abs(direct_kinematics(-1, 1)[1] - D / d) < 0.0001
     True
     >>> abs(direct_kinematics(1, 1)[1]) < 0.0001
     True
-    >>> abs(direct_kinematics(0, 1)[0] - 0.013) < 0.0001
+    >>> abs(direct_kinematics(0, 1)[0] - 0.0013) < 0.0001
     True
-    >>> abs(direct_kinematics(0, 1)[1] - 1.857142) < 0.0001
+    >>> abs(direct_kinematics(0, 1)[1] - 0.1857142) < 0.0001
     True
-    >>> abs(direct_kinematics(1, 0)[0] - 0.013) < 0.0001
+    >>> abs(direct_kinematics(1, 0)[0] - 0.0013) < 0.0001
     True
-    >>> abs(direct_kinematics(1, 0)[1] + 1.857142) < 0.0001
+    >>> abs(direct_kinematics(1, 0)[1] + 0.1857142) < 0.0001
     True
-    >>> abs(direct_kinematics(0, -1)[0] + 0.013) < 0.0001
+    >>> abs(direct_kinematics(0, -1)[0] + 0.0013) < 0.0001
     True
-    >>> abs(direct_kinematics(0, -1)[1] + 1.857142) < 0.0001
+    >>> abs(direct_kinematics(0, -1)[1] + 0.1857142) < 0.0001
     True
-    >>> abs(direct_kinematics(-1, 0)[0] + 0.013) < 0.0001
+    >>> abs(direct_kinematics(-1, 0)[0] + 0.0013) < 0.0001
     True
-    >>> abs(direct_kinematics(-1, 0)[1] - 1.857142) < 0.0001
+    >>> abs(direct_kinematics(-1, 0)[1] - 0.1857142) < 0.0001
     True
     """
     # Case of a rotation around the middle of the 2 wheels

@@ -45,15 +45,15 @@ i = 0
 j = 1
 while T > 0:
     i += 1
-    old_pl = new_pl
-    old_pr = new_pr
-    new_pr, new_pl = dxl_io.get_present_position(ids)
-    # print("angle relatif droite :", first_position[0] - new_pr)
-    # print("angle relatif gauche :", new_pl - first_position[1])
-
-    diff_l = new_pl - old_pl
-    diff_r = old_pr - new_pr
-    # print("L :", diff_l, "R :", diff_r)
+    # old_pl = new_pl
+    # old_pr = new_pr
+    # new_pr, new_pl = dxl_io.get_present_position(ids)
+    # # print("angle relatif droite :", first_position[0] - new_pr)
+    # # print("angle relatif gauche :", new_pl - first_position[1])
+    #
+    # diff_l = new_pl - old_pl
+    # diff_r = old_pr - new_pr
+    # # print("L :", diff_l, "R :", diff_r)
 
     # if diff_l > 180:
     #     if new_pl < old_pl:
@@ -70,8 +70,10 @@ while T > 0:
     current += dt
     T -= dt
 
-    w_l = diff_l * (np.pi / 180) / dt
-    w_r = diff_r * (np.pi / 180) / dt
+    # w_l = diff_l * (np.pi / 180) / dt
+    # w_r = diff_r * (np.pi / 180) / dt
+
+    w_r, w_l = dxl_io.get_present_speed()
 
     v, w = direct_kinematics(w_l, w_r)
 
