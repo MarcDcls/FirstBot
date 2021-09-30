@@ -3,6 +3,7 @@ import numpy as np
 d = 0.014
 D = 0.052
 
+
 def direct_kinematics(w_l, w_r):
     """
     Takes as parameters wheel speeds (rad/s) and returns linear (m/s) and angular (rad/s) speeds of the robot
@@ -44,19 +45,23 @@ def direct_kinematics(w_l, w_r):
 
     # General Case :
     direction_w = 1
+    side = 1
+    if w_r > 0:
+        side = - 1
     if w_l > w_r:
         direction_w = - 1
+        side = - side
 
     if w_r == 0:
-        r_l = d / (1 - (w_r / w_l))
+        r_l = w_l * d / (w_l - w_r)
         v_l = D * w_l / 2
         r = r_l - d / 2
         v = r * v_l / r_l
 
     else:
-        r_r = d / (1 - (w_l / w_r))
+        r_r = w_r * d / (w_r - w_l)
         v_r = D * w_r / 2
-        r = r_r - d / 2
+        r = r_r + side * d / 2
         v = r * v_r / r_r
 
     return v, direction_w * abs(v / r)
@@ -82,8 +87,8 @@ def odom(v, w, dt):
     # Exceptions
     if w == 0:
         if v == 0:
-            return 0, 0, 0 # No motion
-        return 0, v * dt, 0 # Case of a straight line
+            return 0, 0, 0  # No motion
+        return 0, v * dt, 0  # Case of a straight line
 
     r = v / w
     dtheta = w * dt
@@ -137,10 +142,10 @@ def inverse_kinematics(v, w):
     # Exceptions
     if w == 0:
         if v == 0:
-            return 0, 0 # No motion
-        return 2 * v / D, 2 * v / D # Case of a straight line
+            return 0, 0  # No motion
+        return 2 * v / D, 2 * v / D  # Case of a straight line
     if v == 0:
-        return - w * d / D, w * d / D # Case of a rotation around the middle of the 2 wheels
+        return - w * d / D, w * d / D  # Case of a rotation around the middle of the 2 wheels
 
     # General case
     r = v / w
@@ -170,4 +175,5 @@ def go_to(x, y, theta):
 
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()
