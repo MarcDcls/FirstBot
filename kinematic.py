@@ -56,7 +56,7 @@ def direct_kinematics(w_l, w_r):
     return v, w
 
 
-def odom(v, w, dt):
+def odom(v, w, theta, dt):
     """
     Takes as parameters linear and angular speed of the robot, and returns the position (m) and orientation (rad)
     variation in the robot frame
@@ -81,8 +81,8 @@ def odom(v, w, dt):
 
     # r = v / w
     dtheta = w * dt
-    dx = v * dt * np.cos(dtheta)
-    dy = v * dt * np.sin(dtheta)
+    dx = v * dt * np.cos(dtheta + theta)
+    dy = v * dt * np.sin(dtheta + theta)
     return dx, dy, dtheta
 
 
@@ -99,8 +99,8 @@ def tick_odom(x, y, theta, v, w, dt):
     :param dt: time duration
     :return: new x, new y, new theta
     """
-    dx, dy, dtheta = odom(v, w, dt)
-    return x + dx, y + dy, theta + dtheta
+    dx, dy, dtheta = odom(v, w, theta, dt)
+    return x + dx, y + dy, dtheta
 
 
 def inverse_kinematics(v, w):
