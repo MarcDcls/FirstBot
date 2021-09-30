@@ -1,3 +1,4 @@
+import json
 import time, math
 
 import pypot.dynamixel
@@ -37,7 +38,9 @@ current = time.time()
 first_position = dxl_io.get_present_position(ids)
 print("first position : ",first_position)
 
-old_pl, old_pr = dxl_io.get_present_position(ids)
+new_pl, new_pr = dxl_io.get_present_position(ids)
+
+positions = []
 
 while T > 0:
     old_pl = new_pl
@@ -46,9 +49,16 @@ while T > 0:
     diff_l = abs(new_pl-old_pl)
     diff_r = abs(new_pr-old_pr)
 
-    if diff_l > 350:
-        diff_l = 0
-        diff_r = 0
+    if diff_l > 180:
+        if new_pl < old_pl:
+            diff_l = (new_pl-old_pl)%360
+        else:
+            diff_l = (old_pl-new_pl)%360
+    if diff_r > 180:
+        if new_pr < old_pr:
+            diff_r = (new_pr-old_pr)%360
+        else:
+            diff_r = (old_pr-new_pr)%360
 
     dt = time.time() - current
     current += dt
@@ -63,5 +73,11 @@ while T > 0:
 
     X, Y, THETA = kinematic.tick_odom(X, Y, THETA, v, w, dt)
 
+    positions.append((X, Y, THETA))
+
     print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
+    time.sleep(1/30)
+
+with open("positions.json", 'x') as f:
+    json.dump(positions, f)
