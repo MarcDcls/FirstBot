@@ -7,7 +7,7 @@ from robot import *
 ################################ DESTINATION ################################
 
 X = 1
-Y = 0
+Y = 1
 THETA = 0 # - np.pi / 2
 
 ################################# VARIABLES #################################
@@ -15,7 +15,7 @@ THETA = 0 # - np.pi / 2
 FRAMERATE = 1 / 30
 
 LINEAR_FACTOR = 0.4
-ANGULAR_FACTOR = 1
+ANGULAR_FACTOR = 2
 DELTA = 0.03
 
 ports = pypot.dynamixel.get_available_ports()
@@ -52,10 +52,10 @@ try:
     while distance > DELTA:
         distance = np.sqrt((X + robot.x) ** 2 + (Y - robot.y) ** 2)
         # print(distance)
-        # print("x, y :", robot.x, robot.y)
+        print("x, y :", robot.x, robot.y)
         v = LINEAR_FACTOR * distance
 
-        angle = np.arctan((X + robot.x) / (Y - robot.y))
+        angle = np.arctan2(X + robot.x, Y - robot.y) - robot.theta
         w = ANGULAR_FACTOR * angle
         print("angle :", angle)
         print("v, w :", v, w)

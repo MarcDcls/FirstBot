@@ -59,20 +59,24 @@ try:
         if not ret:
             print("Can't receive frame (stream end?).")
             continue
+            
+        cv.imwrite("tmp2/" + str(i) + ".jpg", frame)
 
         x, y, change = processing(frame)
 
-        if change and not change_line:
+        """if change and not change_line:
             change_line = True
             # dxl_io.set_moving_speed({1:0, 2:0})
             if line_color == "blue":
+                line_color = "red"
                 default_speed, p = init_values("red")
                 initial_time = time.time()
             else:
+                line_color = "blue"
                 default_speed, p = init_values("blue")
 
         elif not change:
-            change_line = False
+            change_line = False"""
         
         print(line_color)
 
