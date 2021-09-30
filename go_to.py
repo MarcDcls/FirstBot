@@ -14,7 +14,7 @@ THETA = 0
 
 FRAMERATE = 1 / 30
 
-LINEAR_FACTOR = 0.1
+LINEAR_FACTOR = 0.5
 ANGULAR_FACTOR = 2
 
 ports = pypot.dynamixel.get_available_ports()
@@ -59,6 +59,9 @@ try:
         robot.odom(v, w, dt)
         print("x, y, theta :", robot.x, robot.y, robot.theta)
         time.sleep(FRAMERATE)
+
+    speed = {1: 0, 2: 0}
+    dxl_io.set_moving_speed(speed)
 
 except KeyboardInterrupt:
     speed = {1: 0, 2: 0}
