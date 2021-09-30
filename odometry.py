@@ -82,10 +82,10 @@ while T > 0:
 
     # positions.append((X, Y, THETA))
 
-    if i / 30 == j:
+    if i / 100 == j:
         j += 1
         print("v, w :", v, w)
-        print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
+        # print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
     time.sleep(FRAMERATE)
 
