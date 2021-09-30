@@ -54,6 +54,7 @@ try:
 
         dt = time.time() - current_time
         current_time += dt
+        print("dt :", dt)
 
         robot.odom(v, w, dt)
         print("x, y, theta :", robot.x, robot.y, robot.theta)
