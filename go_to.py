@@ -15,7 +15,7 @@ THETA = - np.pi / 2
 FRAMERATE = 1 / 30
 
 LINEAR_FACTOR = 0.1 # 0.5
-ANGULAR_FACTOR = - 1
+ANGULAR_FACTOR = 1
 
 ports = pypot.dynamixel.get_available_ports()
 if not ports:
@@ -43,7 +43,7 @@ try:
         distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
         v = LINEAR_FACTOR * distance
 
-        angle = np.arctan2(Y - robot.y, X - robot.x) - np.pi / 2
+        angle =  np.pi / 2 - np.arctan2(Y - robot.y, X - robot.x)
         w = ANGULAR_FACTOR * angle
         print("angle :", angle)
         # print("v, w :", v, w)
