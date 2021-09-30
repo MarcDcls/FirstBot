@@ -29,47 +29,26 @@ ids = found_ids[:2]
 dxl_io.disable_torque(ids)
 
 
-
-
-
 robot = Robot()
 current_time = time.time()
 
-new_pr, new_pl = dxl_io.get_present_position(ids)
-
-# positions = []
 i = 0
 j = 1
 while T > 0:
     i += 1
-    old_pl = new_pl
-    old_pr = new_pr
-    new_pr, new_pl = dxl_io.get_present_position(ids)
-    # print("angle relatif droite :", first_position[0] - new_pr)
-    # print("angle relatif gauche :", new_pl - first_position[1])
-
-    diff_l = new_pl - old_pl
-    diff_r = old_pr - new_pr
-    # print("L :", diff_l, "R :", diff_r)
 
     dt = time.time() - current_time
     current_time += dt
     T -= dt
 
-    w_l = diff_l * (np.pi / 180) / dt
-    w_r = diff_r * (np.pi / 180) / dt
-    print("POS :", w_r, w_l)
-
     w_r, w_l = dxl_io.get_present_speed(ids)
-    w_r, w_l = w_r * (np.pi / 180), w_l * (np.pi / 180)
-    print("SPEED :", w_r, w_l)
+    w_r, w_l = - w_r * (np.pi / 180), w_l * (np.pi / 180)
+    # print("SPEED :", w_r, w_l)
 
     v, w = direct_kinematics(w_l, w_r)
     robot.odom(v, w, dt)
 
     # X, Y, THETA = tick_odom(X, Y, THETA, v, w, dt)
-
-    # positions.append((X, Y, THETA))
 
     if i / 100 == j:
         j += 1
@@ -79,6 +58,3 @@ while T > 0:
     time.sleep(FRAMERATE)
 
 # print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
-
-# with open("positions.json", 'x') as f:
-#     json.dump(positions, f)
