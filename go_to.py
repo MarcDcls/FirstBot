@@ -43,7 +43,7 @@ try:
         distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
         v = LINEAR_FACTOR * distance
 
-        angle =  np.pi / 2 - np.arctan2(Y - robot.y, X - robot.x)
+        angle =  np.pi / 2 - np.arctan2(Y - robot.y, X - robot.x) - robot.theta
         w = ANGULAR_FACTOR * angle
         print("angle :", angle)
         # print("v, w :", v, w)
