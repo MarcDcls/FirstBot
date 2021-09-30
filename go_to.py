@@ -55,7 +55,7 @@ try:
 		current_time += dt
 
 		robot.odom(v, w, dt)
-		# print("x, y, theta :", x, y, theta)
+		print("x, y, theta :", robot.x, robot.y, robot.theta)
 		time.sleep(FRAMERATE)
 
 except KeyboardInterrupt:
