@@ -53,7 +53,7 @@ def get_centroid(image):
         cx = int(M['m10']/M['m00'])
         cy = int(M['m01']/M['m00'])
     except:
-        print("No line detected (end).")
+        print("No line detected.")
         return None,None
 	 
 
@@ -65,20 +65,8 @@ def get_centroid(image):
 
 def processing(image):
 
-    start = time()
-
     img = threshold(image)
-    step2 = time()
-    print("Détection de contours :", step2-start, "s")
-
     x, y = get_centroid(img)
-
-    total = step2-start
-    print("Temps total :", total, "s")
-    print("(fréquence :", np.ceil(1/total), "Hz)")
-
-    #cv.circle(image, (x, y), 5, (0, 0, 255), -1)
-    #cv.imwrite('2_centroid.jpg', image)
 
     return x, y
 
