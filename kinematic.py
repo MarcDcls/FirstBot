@@ -1,7 +1,7 @@
 import numpy as np
 
-d = 0.014
-D = 0.0052
+d = 0.14
+D = 0.052
 
 
 def direct_kinematics(w_l, w_r):

@@ -1,8 +1,6 @@
 from kinematic import *
 
 class Robot:
-    d = 0.014
-    D = 0.0052
     theta = 0
     x = 0
     y = 0
