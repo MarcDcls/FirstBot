@@ -49,8 +49,8 @@ try:
         print("v, w :", v, w)
 
         w_l, w_r = inverse_kinematics(v, w)
-        speed = {1: - w_r * 180 / np.pi, # * (initial_distance - distance),
-                 2: w_l * 180 / np.pi} # * (initial_distance - distance)}
+        speed = {1: w_l * 180 / np.pi, # * (initial_distance - distance),
+                 2: - w_r * 180 / np.pi} # * (initial_distance - distance)}
         print("Speed :", speed)
         dxl_io.set_moving_speed(speed)
 
