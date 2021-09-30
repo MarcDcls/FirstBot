@@ -1,5 +1,5 @@
 import json
-import time, math
+import time
 
 import pypot.dynamixel
 
@@ -37,49 +37,48 @@ ids = found_ids[:2]
 dxl_io.disable_torque(ids)
 current = time.time()
 first_position = dxl_io.get_present_position(ids)
-print("first position : ",first_position)
+print("first position : ", first_position)
 
 new_pl, new_pr = dxl_io.get_present_position(ids)
 
-positions = []
+# positions = []
 
 while T > 0:
     old_pl = new_pl
     old_pr = new_pr
     new_pl, new_pr = dxl_io.get_present_position(ids)
-    diff_l = abs(new_pl-old_pl)
-    diff_r = abs(new_pr-old_pr)
+    print("angle relatif gauche :", new_pl - first_position[0])
+
+    diff_l = abs(new_pl - old_pl)
+    diff_r = abs(new_pr - old_pr)
 
     if diff_l > 180:
         if new_pl < old_pl:
-            diff_l = (new_pl-old_pl)%360
+            diff_l = (new_pl - old_pl) % 360
         else:
-            diff_l = (old_pl-new_pl)%360
+            diff_l = (old_pl - new_pl) % 360
     if diff_r > 180:
         if new_pr < old_pr:
-            diff_r = (new_pr-old_pr)%360
+            diff_r = (new_pr - old_pr) % 360
         else:
-            diff_r = (old_pr-new_pr)%360
+            diff_r = (old_pr - new_pr) % 360
 
     dt = time.time() - current
     current += dt
     T -= dt
 
-    speed_l = diff_l / dt
-    speed_r = diff_r / dt
-    speed_l *= (math.pi/180)
-    speed_r *= (math.pi/180)
+    speed_l = diff_l * (np.pi / 180) / dt
+    speed_r = diff_r * (np.pi / 180) / dt
 
     v, w = direct_kinematics(speed_l, speed_r)
 
     X, Y, THETA = kinematic.tick_odom(X, Y, THETA, v, w, dt)
 
-    positions.append((X, Y, THETA))
+    # positions.append((X, Y, THETA))
 
-    print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
+    # print("X :", X, "\nY :", Y, "\nTHETA :", THETA)
 
     time.sleep(FRAMERATE)
 
-
-with open("positions.json", 'x') as f:
-    json.dump(positions, f)
+# with open("positions.json", 'x') as f:
+#     json.dump(positions, f)

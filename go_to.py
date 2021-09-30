@@ -14,8 +14,8 @@ THETA = 0
 FRAMERATE = 1 / 30
 MOTOR_SPEED = 200
 
-LINEAR_FACTOR = 0.0001
-ANGULAR_FACTOR = 0.0001
+LINEAR_FACTOR = 0.02
+ANGULAR_FACTOR = 2
 
 # ports = pypot.dynamixel.get_available_ports()
 # if not ports:
@@ -42,15 +42,18 @@ x = 0
 y = 0
 theta = 0
 t1 = time.time()
+i = 0
 while abs(X - x) > 0.03 or abs(Y - y) > 0.03:
+	i += 1
 	distance = np.sqrt((X - x) ** 2 + (Y - y) ** 2)
 	v = LINEAR_FACTOR * distance
-	angle = np.arctan2(Y - y, X - x)
-	w = ANGULAR_FACTOR * distance
-
+	angle = np.arctan2(Y - y, X - x) - np.pi / 2
+	# print("angle :", angle)
+	w = ANGULAR_FACTOR * angle
+	print("v, w :", v, w)
 	w_l, w_r = kinematic.inverse_kinematics(v, w)
 	speed = {1: w_l, 2: w_r}
-	print("Speed :", speed)
+	# print("Speed :", speed)
 	# dxl_io.set_moving_speed(speed)
 
 	t2 = time.time()
@@ -59,5 +62,7 @@ while abs(X - x) > 0.03 or abs(Y - y) > 0.03:
 
 	x, y, theta = kinematic.tick_odom(x, y, theta, v, w, dt)
 	print("x, y, theta :", x, y, theta)
+	time.sleep(FRAMERATE)
 
-time.sleep(FRAMERATE)
+	if i == 30: break
+
