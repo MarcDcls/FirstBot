@@ -46,7 +46,6 @@ if not cap.isOpened():
     print("Cannot open camera")
     exit()
 
-list_speed = [speed]*30
 
 
 try:
@@ -60,10 +59,10 @@ try:
         x, y = processing(frame)
 
         if x == None:
-            mean_1, mean_2 = mean(list_speed)
+            s = 20
             mean_speed = {
-                1: mean_1,
-                2: mean_2
+                1: -default_speed + s,
+                2: default_speed + s
             }
             dxl_io.set_moving_speed(mean_speed)
 
@@ -73,8 +72,6 @@ try:
                 -default_speed + 0.4*x,
                 default_speed + 0.4*x
             )
-            del list_speed[0]
-            list_speed.append(speed)
             print(speed)
 
             dxl_io.set_moving_speed({
