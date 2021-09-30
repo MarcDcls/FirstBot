@@ -49,7 +49,7 @@ while abs(X - robot.x) > 0.03 or abs(Y - robot.y) > 0.03:
 
 	w_l, w_r = inverse_kinematics(v, w)
 	speed = {1: w_l, 2: w_r}
-	# print("Speed :", speed)
+	print("Speed :", speed)
 	dxl_io.set_moving_speed(speed)
 
 	dt = time.time() - current_time
