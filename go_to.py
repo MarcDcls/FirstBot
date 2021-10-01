@@ -51,13 +51,13 @@ try:
     distance = initial_distance
     while distance > DELTA:
         distance = np.sqrt((X + robot.x) ** 2 + (Y - robot.y) ** 2)
-        print(distance)
-        print("x, y :", robot.x, robot.y)
+        # print(distance)
+        # print("x, y :", robot.x, robot.y)
         v = sign * LINEAR_FACTOR * distance
 
         angle = np.arctan2(X + robot.x, Y - robot.y) # - robot.theta
         w = sign * ANGULAR_FACTOR * angle
-        # print("angle :", angle)
+        print("angle :", angle)
         print("v, w :", v, w)
 
         w_l, w_r = inverse_kinematics(v, w)
