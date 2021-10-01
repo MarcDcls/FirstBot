@@ -164,13 +164,13 @@ try:
         red_x.append(robot.x)
         red_y.append(robot.y)
 
-    plt.plot(blue_x, blue_y, color='blue')
-    plt.plot(red_x, red_y, color='red')
-    plt.savefig("trajectories.png")
-
 except KeyboardInterrupt:
     speed = {1: 0, 2: 0}
     dxl_io.set_moving_speed(speed)
+
+    plt.plot(blue_x, blue_y, color='blue')
+    plt.plot(red_x, red_y, color='red')
+    plt.savefig("trajectories.png")
     cap.release()
     exit()
 
