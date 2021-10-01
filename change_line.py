@@ -85,7 +85,7 @@ try:
     speed = (-RED_SPEED, RED_SPEED)
     while True:
 
-        if RED_TIME < time.time() - initial_time < RED_TIME + 10:
+        if RED_TIME < time.time() - initial_time < RED_TIME + 2:
             speed = (
                 - RED_SPEED,
                 RED_SPEED - 200
