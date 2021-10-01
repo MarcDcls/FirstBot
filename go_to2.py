@@ -84,6 +84,7 @@ try:
         dt = time.time() - current_time
         current_time += dt
         robot.odom(v, w, dt)
+        print(robot.theta)
         time.sleep(FRAMERATE)
 
     speed = {1: 0, 2: 0}
