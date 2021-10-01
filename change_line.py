@@ -36,14 +36,15 @@ if not cap.isOpened():
     print("Cannot open camera")
     exit()
 
-SPEED = 500
+BLUE_SPEED = 500
+RED_SPEED = 400
 BLUE_TIME = 34
 RED_TIME = 3.8
 
 try:
     # initial_time = time.time()
     # init_values("blue")
-    # speed = (-SPEED, SPEED)
+    # speed = (-BLUE_SPEED, BLUE_SPEED)
     # while True:
     #     ret, frame = cap.read()
     #     if not ret:
@@ -63,13 +64,13 @@ try:
     #     else:
     #         if x == 0:
     #             speed = (
-    #                 - SPEED,
-    #                 SPEED
+    #                 - BLUE_SPEED,
+    #                 BLUE_SPEED
     #             )
     #         else:
     #             speed = (
-    #                 - SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
-    #                 SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
+    #                 - BLUE_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
+    #                 BLUE_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
     #             )
     #
     #         dxl_io.set_moving_speed({
@@ -81,13 +82,13 @@ try:
 
     initial_time = time.time()
     init_values("red")
-    speed = (-SPEED, SPEED)
+    speed = (-RED_SPEED, RED_SPEED)
     while True:
 
         if RED_TIME < time.time() - initial_time < RED_TIME + 0.5:
             speed = (
-                - SPEED - 100,
-                SPEED
+                - RED_SPEED - 100,
+                RED_SPEED
             )
 
             dxl_io.set_moving_speed({
@@ -114,13 +115,13 @@ try:
         else:
             if x == 0:
                 speed = (
-                    - SPEED,
-                    SPEED
+                    - RED_SPEED,
+                    RED_SPEED
                 )
             else:
                 speed = (
-                    - SPEED + 0.5 * x + 0.0012 * (x / abs(x)) * x ** 2 + 0.00001 * x ** 3,
-                    SPEED + 0.5 * x + 0.0012 * (x / abs(x)) * x ** 2 + 0.00001 * x ** 3
+                    - RED_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
+                    RED_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
                 )
 
             dxl_io.set_moving_speed({
