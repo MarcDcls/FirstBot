@@ -29,8 +29,6 @@ def init_values(color: str):
         low_S = values["low_S"]
         low_V = values["low_V"]
 
-        return values["speed"], values["p"]
-
 
 def threshold(image):
    

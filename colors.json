@@ -3,14 +3,12 @@
         "low_H": 100,
         "high_H": 160,
         "low_S": 80,
-        "low_V": 60,
-        "speed": 500
+        "low_V": 60
     },
     "red": {
         "low_H": 0,
         "high_H": 20,
         "low_S": 80,
-        "low_V": 80,
-        "speed": 500
+        "low_V": 80
     }
 }
