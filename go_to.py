@@ -39,24 +39,24 @@ try:
     robot = Robot()
     current_time = time.time()
     initial_distance = np.sqrt(X ** 2 + Y ** 2)
-    initial_angle = np.arctan2(X + robot.x, Y - robot.y)
-    sign = 1
-    if abs(initial_angle) > np.pi / 2:
-        sign = - 1
-        if initial_angle > 0:
-            initial_angle -= np.pi / 2
-        else:
-            initial_angle += np.pi / 2
+    # initial_angle = np.arctan2(X + robot.x, Y - robot.y)
+    # sign = 1
+    # if abs(initial_angle) > np.pi / 2:
+    #     sign = - 1
+    #     if initial_angle > 0:
+    #         initial_angle -= np.pi / 2
+    #     else:
+    #         initial_angle += np.pi / 2
 
     distance = initial_distance
     while distance > DELTA:
         distance = np.sqrt((X + robot.x) ** 2 + (Y - robot.y) ** 2)
         # print(distance)
         # print("x, y :", robot.x, robot.y)
-        v = sign * LINEAR_FACTOR * distance
+        v = LINEAR_FACTOR * distance
 
-        angle = np.arctan2(X + robot.x, Y - robot.y)
-        w = sign * ANGULAR_FACTOR * angle
+        angle = np.arctan((X + robot.x) / (Y - robot.y))
+        w = ANGULAR_FACTOR * angle
         print("angle :", angle)
         print("v, w :", v, w)
 
