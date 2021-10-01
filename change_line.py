@@ -37,7 +37,7 @@ if not cap.isOpened():
     exit()
 
 
-BLUE_TIME = 34
+BLUE_TIME = 40
 initial_time = time.time()
 try:
     default_speed, p = init_values("blue")
