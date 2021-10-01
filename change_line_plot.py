@@ -1,7 +1,7 @@
 import time
 
 import cv2 as cv
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import pypot.dynamixel
 
 from image_processing import processing, init_values
