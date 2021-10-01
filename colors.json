@@ -10,8 +10,8 @@
     "red": {
         "low_H": 0,
         "high_H": 20,
-        "low_S": 0,
-        "low_V": 0,
+        "low_S": 80,
+        "low_V": 80,
         "speed": 300,
         "p": 1,
         "structuring_element": 20
@@ -19,8 +19,8 @@
     "yellow": {
         "low_H": 20,
         "high_H": 100,
-        "low_S": 60,
-        "low_V": 60,
+        "low_S": 80,
+        "low_V": 80,
         "structuring_element": 30
     }
 }
