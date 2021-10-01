@@ -39,9 +39,9 @@ if not cap.isOpened():
 BLUE_SPEED = 500
 RED_SPEED = 400
 BLUE_TIME = 34
-RED_TIME_1 = 7
-RED_TIME_2 = 43
-RED_TIME_3 = 47
+RED_TIME_1 = 8
+RED_TIME_2 = 44
+RED_TIME_3 = 48
 
 try:
     initial_time = time.time()
