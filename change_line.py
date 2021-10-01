@@ -56,7 +56,6 @@ try:
     while True:
         # i += 1
         ret, frame = cap.read()
-        print(ret)
         if not ret:
             print("Can't receive frame (stream end?).")
             continue
@@ -64,7 +63,7 @@ try:
         # cv.imwrite("tmp2/" + str(i) + ".jpg", frame)
 
         x, y, change = processing(frame)
-
+        print("x, y :", x, y)
         """if change and not change_line:
             change_line = True
             # dxl_io.set_moving_speed({1:0, 2:0})
@@ -82,7 +81,7 @@ try:
         # print(line_color)
 
         if x == None:
-            print("None")
+            continue
         #     print("No line detected.")
         #     s = 40
         #     mean_speed = {
