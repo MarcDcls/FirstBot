@@ -87,7 +87,7 @@ try:
 
         if RED_TIME < time.time() - initial_time < RED_TIME + 10:
             speed = (
-                - RED_SPEED - 100,
+                - RED_SPEED - 200,
                 RED_SPEED
             )
 
