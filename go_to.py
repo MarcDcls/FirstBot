@@ -38,10 +38,10 @@ dxl_io.enable_torque(ids)
 try:
     robot = Robot()
     current_time = time.time()
-    initial_distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
+    initial_distance = np.sqrt((X + robot.x) ** 2 + (Y - robot.y) ** 2)
 
     while abs(X - robot.x) > DELTA or abs(Y - robot.y) > DELTA:
-        distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
+        distance = np.sqrt((X + robot.x) ** 2 + (Y - robot.y) ** 2)
         print(distance)
         print("x, y :", robot.x, robot.y)
         v = LINEAR_FACTOR * distance
