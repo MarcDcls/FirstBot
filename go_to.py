@@ -43,6 +43,7 @@ try:
     while abs(X - robot.x) > DELTA or abs(Y - robot.y) > DELTA:
         distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
         print(distance)
+        print(robot.x, robot.y)
         v = LINEAR_FACTOR * distance
 
         angle =  np.pi / 2 - np.arctan2(Y - robot.y, X - robot.x) - robot.theta

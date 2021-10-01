@@ -4,14 +4,16 @@ import pypot.dynamixel
 import sys
 import numpy as np
 
-def mean(list_speed):
-    sum_1 = 0
-    sum_2 = 0
-    l = len(list_speed)
-    for i in range(l):
-        sum_1 += list_speed[i][0]
-        sum_2 += list_speed[i][1]
-    return sum_1/l, sum_2/l
+FIRST_LOOP =
+
+# def mean(list_speed):
+#     sum_1 = 0
+#     sum_2 = 0
+#     l = len(list_speed)
+#     for i in range(l):
+#         sum_1 += list_speed[i][0]
+#         sum_2 += list_speed[i][1]
+#     return sum_1/l, sum_2/l
 
 line_color = "blue"
 nb_args = len(sys.argv)
