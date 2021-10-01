@@ -13,8 +13,8 @@ high_S = max_value
 high_V = max_value
 
 
-def init_color(color: str):
-    global low_H, high_H
+def init_values(color: str):
+    global low_H, high_H, low_S, low_V
 
     with open("colors.json") as f:
         colors = json.load(f)
@@ -26,7 +26,10 @@ def init_color(color: str):
 
         low_H = values["low_H"]
         high_H = values["high_H"]
-        print(low_H, high_H)
+        low_S = values["low_S"]
+        low_V = values["low_V"]
+
+        return values["speed"], values["p"]
 
 
 def threshold(image):
@@ -62,13 +65,30 @@ def get_centroid(image):
 
     return cx, cy
 
+def is_yellow(image):
+   
+    image = cv.cvtColor(image, cv.COLOR_BGR2HSV)
+    image = cv.inRange(image, (20,80,80),(100,high_S,high_V))
+
+
+    structElt = cv.getStructuringElement(cv.MORPH_ELLIPSE, (5, 5))
+    image = cv.erode(image, structElt)
+    image = cv.dilate(image, structElt)
+
+    x,y = get_centroid(image)
+    return x != None
+
 
 def processing(image):
 
     img = threshold(image)
     x, y = get_centroid(img)
 
-    return x, y
+    change = False
+    if is_yellow(image):
+        change = True
+
+    return x, y, change
 
 
 if __name__ == "__main__":
