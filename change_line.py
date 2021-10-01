@@ -40,7 +40,7 @@ BLUE_SPEED = 500
 RED_SPEED = 400
 BLUE_TIME = 34
 RED_TIME_1 = 8
-RED_TIME_2 = 44
+RED_TIME_2 = 43
 RED_TIME_3 = 48
 
 try:
@@ -102,7 +102,7 @@ try:
         elif RED_TIME_2 < time.time() - initial_time < RED_TIME_2 + 1:
             speed = (
                 - RED_SPEED,
-                RED_SPEED - 200
+                RED_SPEED - 250
             )
 
             dxl_io.set_moving_speed({
