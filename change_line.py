@@ -113,7 +113,7 @@ try:
 
         elif RED_TIME_3 < time.time() - initial_time < RED_TIME_3 + 2:
             speed = (
-                - RED_SPEED + 150,
+                - RED_SPEED + 200,
                 RED_SPEED
             )
 
