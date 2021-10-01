@@ -40,8 +40,8 @@ BLUE_SPEED = 500
 RED_SPEED = 400
 BLUE_TIME = 34
 RED_TIME_1 = 7
-RED_TIME_2 = 41
-RED_TIME_3 = 43
+RED_TIME_2 = 43
+RED_TIME_3 = 45
 
 try:
     # initial_time = time.time()
