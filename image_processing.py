@@ -13,23 +13,23 @@ high_S = max_value
 high_V = max_value
 
 
-# def init_values(color: str):
-#     global low_H, high_H, low_S, low_V
-#
-#     with open("colors.json") as f:
-#         colors = json.load(f)
-#         if not color in colors:
-#             print("Color does not exist")
-#             exit()
-#
-#         values = colors[color]
-#
-#         low_H = values["low_H"]
-#         high_H = values["high_H"]
-#         low_S = values["low_S"]
-#         low_V = values["low_V"]
-#
-#         return values["speed"], values["p"]
+def init_values(color: str):
+    global low_H, high_H, low_S, low_V
+
+    with open("colors.json") as f:
+        colors = json.load(f)
+        if not color in colors:
+            print("Color does not exist")
+            exit()
+
+        values = colors[color]
+
+        low_H = values["low_H"]
+        high_H = values["high_H"]
+        low_S = values["low_S"]
+        low_V = values["low_V"]
+
+        return values["speed"], values["p"]
 
 
 def threshold(image):
