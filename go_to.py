@@ -15,7 +15,7 @@ THETA = 0 # - np.pi / 2
 FRAMERATE = 1 / 30
 
 LINEAR_FACTOR = 0.4
-ANGULAR_FACTOR = 1
+ANGULAR_FACTOR = 3
 DELTA = 0.03
 
 ports = pypot.dynamixel.get_available_ports()
