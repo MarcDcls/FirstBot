@@ -1,9 +1,9 @@
-import cv2 as cv
-from image_processing import processing, init_values
-import pypot.dynamixel
 import sys
-import numpy as np
-import time
+
+import cv2 as cv
+import pypot.dynamixel
+
+from image_processing import processing, init_values
 
 # def mean(list_speed):
 #     sum_1 = 0
@@ -23,7 +23,6 @@ if nb_args > 1:
 
 default_speed, p = init_values(line_color)
 
-
 ports = pypot.dynamixel.get_available_ports()
 if not ports:
     exit('No port')
@@ -34,7 +33,7 @@ print('Using the first on the list', port)
 dxl_io = pypot.dynamixel.DxlIO(port)
 print('Connected!')
 
-found_ids = dxl_io.scan([1,2])
+found_ids = dxl_io.scan([1, 2])
 print('Found ids:', found_ids)
 
 ids = found_ids[:2]
@@ -75,12 +74,12 @@ try:
 
         elif not change:
             change_line = False"""
-        
+
         # print(line_color)
 
         if x == None:
             print("No Line")
-            speed = {1:0, 2:0}
+            speed = {1: 0, 2: 0}
             dxl_io.set_moving_speed(speed)
             cap.release()
             exit()
@@ -96,8 +95,8 @@ try:
         # else:
         else:
             speed = (
-                -default_speed + 0.5*x,
-                default_speed + 0.5*x
+                - default_speed + 0.35 * x,
+                default_speed + 0.35 * x
             )
             print(x)
             print(speed)
@@ -108,8 +107,7 @@ try:
             })
 
 except KeyboardInterrupt:
-    speed = {1:0, 2:0}
+    speed = {1: 0, 2: 0}
     dxl_io.set_moving_speed(speed)
     cap.release()
     exit()
-
