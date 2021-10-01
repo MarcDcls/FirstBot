@@ -1,9 +1,11 @@
 import time
-from robot import *
+
 import cv2 as cv
+import matplotlib as plt
 import pypot.dynamixel
 
 from image_processing import processing, init_values
+from robot import *
 
 # def mean(list_speed):
 #     sum_1 = 0
@@ -161,6 +163,10 @@ try:
         xx, yy = robot.odom(v, w, dt)
         red_x.append(xx)
         red_y.append(yy)
+
+    plt.plot(blue_x, blue_y, color='blue')
+    plt.plot(red_x, red_y, color='red')
+    plt.savefig("trajectories.png")
 
 except KeyboardInterrupt:
     speed = {1: 0, 2: 0}
