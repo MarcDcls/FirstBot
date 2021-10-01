@@ -60,8 +60,8 @@ try:
 
         else:
             speed = (
-                - default_speed + 0.05 * (x / abs(x)) * x ** 2,
-                default_speed + 0.05 * (x / abs(x)) * x ** 2
+                - default_speed + 0.005 * (x / abs(x)) * x ** 2,
+                default_speed + 0.005 * (x / abs(x)) * x ** 2
             )
             print(x)
             print(speed)
