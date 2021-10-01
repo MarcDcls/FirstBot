@@ -58,7 +58,7 @@ try:
         angle = np.arctan2(X + robot.x, Y - robot.y) - robot.theta
         w = sign * ANGULAR_FACTOR * angle
         # print("angle :", angle)
-        # print("v, w :", v, w)
+        print("v, w :", v, w)
 
         w_l, w_r = inverse_kinematics(v, w)
         speed = {1: - w_l * 180 / np.pi, # * (initial_distance - distance),
