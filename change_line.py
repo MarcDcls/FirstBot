@@ -88,7 +88,7 @@ try:
         if RED_TIME < time.time() - initial_time < RED_TIME + 2:
             speed = (
                 - RED_SPEED,
-                RED_SPEED - 200
+                RED_SPEED - 250
             )
 
             dxl_io.set_moving_speed({
