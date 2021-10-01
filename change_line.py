@@ -44,43 +44,43 @@ RED_TIME_2 = 43
 RED_TIME_3 = 47
 
 try:
-    # initial_time = time.time()
-    # init_values("blue")
-    # speed = (-BLUE_SPEED, BLUE_SPEED)
-    # while True:
-    #     ret, frame = cap.read()
-    #     if not ret:
-    #         print("Can't receive frame (stream end?).")
-    #         continue
-    #
-    #     x, y, change = processing(frame)
-    #     print("x, y :", x, y)
-    #
-    #     if x == None:
-    #         print("No Line")
-    #         dxl_io.set_moving_speed({
-    #             1: speed[0],
-    #             2: speed[1]
-    #         })
-    #
-    #     else:
-    #         if x == 0:
-    #             speed = (
-    #                 - BLUE_SPEED,
-    #                 BLUE_SPEED
-    #             )
-    #         else:
-    #             speed = (
-    #                 - BLUE_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
-    #                 BLUE_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
-    #             )
-    #
-    #         dxl_io.set_moving_speed({
-    #             1: speed[0],
-    #             2: speed[1]
-    #         })
-    #     if time.time() - initial_time > BLUE_TIME:
-    #         break
+    initial_time = time.time()
+    init_values("blue")
+    speed = (-BLUE_SPEED, BLUE_SPEED)
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Can't receive frame (stream end?).")
+            continue
+
+        x, y, change = processing(frame)
+        print("x, y :", x, y)
+
+        if x == None:
+            print("No Line")
+            dxl_io.set_moving_speed({
+                1: speed[0],
+                2: speed[1]
+            })
+
+        else:
+            if x == 0:
+                speed = (
+                    - BLUE_SPEED,
+                    BLUE_SPEED
+                )
+            else:
+                speed = (
+                    - BLUE_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
+                    BLUE_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
+                )
+
+            dxl_io.set_moving_speed({
+                1: speed[0],
+                2: speed[1]
+            })
+        if time.time() - initial_time > BLUE_TIME:
+            break
 
     initial_time = time.time()
     init_values("red")
@@ -111,7 +111,7 @@ try:
             })
             continue
 
-        elif RED_TIME_3 < time.time() - initial_time < RED_TIME_3 + 2.5:
+        elif RED_TIME_3 < time.time() - initial_time < RED_TIME_3 + 2:
             speed = (
                 - RED_SPEED + 150,
                 RED_SPEED
