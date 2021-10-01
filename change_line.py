@@ -81,7 +81,8 @@ try:
         
         # print(line_color)
 
-        # if x == None:
+        if x == None:
+            print("None")
         #     print("No line detected.")
         #     s = 40
         #     mean_speed = {
@@ -91,18 +92,18 @@ try:
         #     dxl_io.set_moving_speed(mean_speed)
         #
         # else:
+        else:
+            speed = (
+                -default_speed + 0.5*x,
+                default_speed + 0.5*x
+            )
+            print(x)
+            print(speed)
 
-        speed = (
-            -default_speed + 0.5*x,
-            default_speed + 0.5*x
-        )
-        print(x)
-        print(speed)
-
-        dxl_io.set_moving_speed({
-            1: speed[0],
-            2: speed[1]
-        })
+            dxl_io.set_moving_speed({
+                1: speed[0],
+                2: speed[1]
+            })
 
 except KeyboardInterrupt:
     speed = {1:0, 2:0}
