@@ -39,7 +39,7 @@ if not cap.isOpened():
 BLUE_SPEED = 500
 RED_SPEED = 400
 BLUE_TIME = 34
-RED_TIME = 5
+RED_TIME = 7
 
 try:
     # initial_time = time.time()
@@ -87,7 +87,7 @@ try:
 
         if RED_TIME < time.time() - initial_time < RED_TIME + 10:
             speed = (
-                - RED_SPEED - 200,
+                - RED_SPEED - 300,
                 RED_SPEED
             )
 
