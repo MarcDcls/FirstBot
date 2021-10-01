@@ -72,6 +72,7 @@ try:
         print(line_color)
 
         if x == None:
+            print("No line detected.")
             s = 40
             mean_speed = {
                 1: -default_speed + s,
