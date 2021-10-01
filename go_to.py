@@ -40,33 +40,38 @@ try:
     current_time = time.time()
     initial_distance = np.sqrt(X ** 2 + Y ** 2)
     initial_angle = np.arctan2(X + robot.x, Y - robot.y)
-    print(initial_angle)
+    sign = 1
+    if abs(initial_angle) > np.pi / 2:
+        sign = - 1
+        if initial_angle > 0:
+            initial_angle -= np.pi / 2
+        else:
+            initial_angle += np.pi / 2
 
-    # if initial_angle
-    # distance = initial_distance
-    # while distance > DELTA:
-    #     distance = np.sqrt((X + robot.x) ** 2 + (Y - robot.y) ** 2)
-    #     print(distance)
-    #     print("x, y :", robot.x, robot.y)
-    #     v = LINEAR_FACTOR * distance
-    #
-    #     angle = np.arctan2(X + robot.x, Y - robot.y) - robot.theta
-    #     w = ANGULAR_FACTOR * angle
-    #     # print("angle :", angle)
-    #     # print("v, w :", v, w)
-    #
-    #     w_l, w_r = inverse_kinematics(v, w)
-    #     speed = {1: - w_l * 180 / np.pi, # * (initial_distance - distance),
-    #              2: w_r * 180 / np.pi} # * (initial_distance - distance)}
-    #     # print("Speed :", speed)
-    #     dxl_io.set_moving_speed(speed)
-    #
-    #     dt = time.time() - current_time
-    #     current_time += dt
-    #
-    #     robot.odom(v, w, dt)
-    #     # print("x, y, theta :", robot.x, robot.y, robot.theta)
-    #     time.sleep(FRAMERATE)
+    distance = initial_distance
+    while distance > DELTA:
+        distance = np.sqrt((X + robot.x) ** 2 + (Y - robot.y) ** 2)
+        print(distance)
+        print("x, y :", robot.x, robot.y)
+        v = sign * LINEAR_FACTOR * distance
+
+        angle = np.arctan2(X + robot.x, Y - robot.y) - robot.theta
+        w = sign * ANGULAR_FACTOR * angle
+        # print("angle :", angle)
+        # print("v, w :", v, w)
+
+        w_l, w_r = inverse_kinematics(v, w)
+        speed = {1: - w_l * 180 / np.pi, # * (initial_distance - distance),
+                 2: w_r * 180 / np.pi} # * (initial_distance - distance)}
+        # print("Speed :", speed)
+        dxl_io.set_moving_speed(speed)
+
+        dt = time.time() - current_time
+        current_time += dt
+
+        robot.odom(v, w, dt)
+        # print("x, y, theta :", robot.x, robot.y, robot.theta)
+        time.sleep(FRAMERATE)
 
     speed = {1: 0, 2: 0}
     dxl_io.set_moving_speed(speed)
