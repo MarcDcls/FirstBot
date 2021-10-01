@@ -35,7 +35,7 @@ while True:
         continue
 
     #cv.imwrite('img.jpg', frame)
-    x, y = processing(frame)
+    x, y, _ = processing(frame)
 
     if x==None:
        speed={1:0,2:0}
