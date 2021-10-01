@@ -82,7 +82,7 @@ try:
             2: speed[1]
         })
 
-        x, y = robot.odom(direct_kinematics())
+        x, y = robot.odom(direct_kinematics(speed[0], speed[1]))
         blue_x.append(x)
         blue_y.append(y)
         if time.time() - initial_time > BLUE_TIME:
@@ -134,7 +134,7 @@ try:
             2: speed[1]
         })
 
-        x, y = robot.odom(direct_kinematics())
+        x, y = robot.odom(direct_kinematics(speed[0], speed[1]))
         blue_x.append(x)
         blue_y.append(y)
 
