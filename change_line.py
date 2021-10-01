@@ -1,5 +1,5 @@
-import sys
 import time
+
 import cv2 as cv
 import pypot.dynamixel
 
@@ -36,7 +36,6 @@ if not cap.isOpened():
     print("Cannot open camera")
     exit()
 
-
 BLUE_TIME = 40
 initial_time = time.time()
 try:
@@ -59,18 +58,24 @@ try:
             })
 
         else:
-            speed = (
-                - default_speed + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
-                default_speed + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
-            )
-            print(x)
-            print(speed)
+            if x == 0:
+                speed = (
+                    - default_speed,
+                    default_speed
+                )
+            else:
+                speed = (
+                    - default_speed + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
+                    default_speed + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
+                )
+            # print(x)
+            # print(speed)
 
             dxl_io.set_moving_speed({
                 1: speed[0],
                 2: speed[1]
             })
-        if time.time() - initial_time > BLUE_TIME :
+        if time.time() - initial_time > BLUE_TIME:
             break
 
     default_speed, p = init_values("red")
