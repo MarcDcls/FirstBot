@@ -6,17 +6,17 @@ from robot import *
 
 ################################ DESTINATION ################################
 
-X = 1
-Y = 1
-THETA = - np.pi / 2
+X = 0
+Y = - 1
+THETA = 0 # - np.pi / 2
 
 ################################# VARIABLES #################################
 
 FRAMERATE = 1 / 30
 
-LINEAR_FACTOR = 0.1 # 0.5
+LINEAR_FACTOR = 0.4
 ANGULAR_FACTOR = 1
-DELTA = 0.1
+DELTA = 0.03
 
 ports = pypot.dynamixel.get_available_ports()
 if not ports:
@@ -38,14 +38,15 @@ dxl_io.enable_torque(ids)
 try:
     robot = Robot()
     current_time = time.time()
-    initial_distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
-
-    while abs(X - robot.x) > DELTA or abs(Y - robot.y) > DELTA:
-        distance = np.sqrt((X - robot.x) ** 2 + (Y - robot.y) ** 2)
+    initial_distance = np.sqrt(X ** 2 + Y ** 2)
+    distance = initial_distance
+    while distance > DELTA:
+        distance = np.sqrt((X + robot.x) ** 2 + (Y - robot.y) ** 2)
         print(distance)
+        print("x, y :", robot.x, robot.y)
         v = LINEAR_FACTOR * distance
 
-        angle =  np.pi / 2 - np.arctan2(Y - robot.y, X - robot.x) - robot.theta
+        angle =  np.arctan2(X + robot.x, Y - robot.y) - robot.theta
         w = ANGULAR_FACTOR * angle
         # print("angle :", angle)
         # print("v, w :", v, w)
