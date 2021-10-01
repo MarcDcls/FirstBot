@@ -54,6 +54,7 @@ try:
     initial_time = time.time()
     init_values("blue")
     speed = (-BLUE_SPEED, BLUE_SPEED)
+    old_time = time.time()
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -82,7 +83,10 @@ try:
             2: speed[1]
         })
 
-        xx, yy = robot.odom(direct_kinematics(speed[0], speed[1]))
+        v, w = direct_kinematics(speed[0], speed[1])
+        dt = time.time() - old_time
+        old_time += dt
+        xx, yy = robot.odom(v, w, dt)
         blue_x.append(xx)
         blue_y.append(yy)
 
@@ -151,7 +155,10 @@ try:
             2: speed[1]
         })
 
-        xx, yy = robot.odom(direct_kinematics(speed[0], speed[1]))
+        v, w = direct_kinematics(speed[0], speed[1])
+        dt = time.time() - old_time
+        old_time += dt
+        xx, yy = robot.odom(v, w, dt)
         red_x.append(xx)
         red_y.append(yy)
 
