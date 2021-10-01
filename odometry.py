@@ -34,7 +34,7 @@ try:
 
     i = 0
     j = 1
-    while T > 0:
+    while True:
         i += 1
         w_r, w_l = dxl_io.get_present_speed(ids)
         w_r, w_l = - w_r * (np.pi / 180), w_l * (np.pi / 180)
