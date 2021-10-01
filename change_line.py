@@ -2,6 +2,7 @@ import time
 
 import cv2 as cv
 import pypot.dynamixel
+from robot import *
 
 from image_processing import processing, init_values
 
@@ -43,6 +44,12 @@ RED_TIME_1 = 8
 RED_TIME_2 = 45
 RED_TIME_3 = 46
 
+blue_x = []
+blue_y = []
+red_x = []
+red_y = []
+robot = Robot()
+
 try:
     initial_time = time.time()
     init_values("blue")
@@ -53,32 +60,31 @@ try:
             print("Can't receive frame (stream end?).")
             continue
 
-        x, y, change = processing(frame)
-        print("x, y :", x, y)
+        vari, _, _ = processing(frame)
 
-        if x == None:
+        if vari is None:
             print("No Line")
-            dxl_io.set_moving_speed({
-                1: speed[0],
-                2: speed[1]
-            })
 
         else:
-            if x == 0:
+            if vari == 0:
                 speed = (
                     - BLUE_SPEED,
                     BLUE_SPEED
                 )
             else:
                 speed = (
-                    - BLUE_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
-                    BLUE_SPEED + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
+                    - BLUE_SPEED + 0.5 * vari + 0.001 * (vari / abs(vari)) * vari ** 2,
+                    BLUE_SPEED + 0.5 * vari + 0.001 * (vari / abs(vari)) * vari ** 2
                 )
 
-            dxl_io.set_moving_speed({
-                1: speed[0],
-                2: speed[1]
-            })
+        dxl_io.set_moving_speed({
+            1: speed[0],
+            2: speed[1]
+        })
+
+        x, y = robot.odom(direct_kinematics())
+        blue_x.append(x)
+        blue_y.append(y)
         if time.time() - initial_time > BLUE_TIME:
             break
 
@@ -86,6 +92,12 @@ try:
     init_values("red")
     speed = (-RED_SPEED, RED_SPEED)
     while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Can't receive frame (stream end?).")
+            continue
+
+        vari, _, _ = processing(frame)
 
         if RED_TIME_1 < time.time() - initial_time < RED_TIME_1 + 2:
             speed = (
@@ -93,67 +105,38 @@ try:
                 RED_SPEED - 250
             )
 
-            dxl_io.set_moving_speed({
-                1: speed[0],
-                2: speed[1]
-            })
-            continue
-
         elif RED_TIME_2 < time.time() - initial_time < RED_TIME_2 + 1:
             speed = (
                 - RED_SPEED,
                 RED_SPEED
             )
 
-            dxl_io.set_moving_speed({
-                1: speed[0],
-                2: speed[1]
-            })
-            continue
-
-        elif RED_TIME_3 < time.time() - initial_time < RED_TIME_3 + 2:
+        elif RED_TIME_3 < time.time() - initial_time < RED_TIME_3 + 3:
             speed = (
                 - RED_SPEED + 200,
                 RED_SPEED
             )
 
-            dxl_io.set_moving_speed({
-                1: speed[0],
-                2: speed[1]
-            })
-            continue
-
-        ret, frame = cap.read()
-        if not ret:
-            print("Can't receive frame (stream end?).")
-            continue
-
-        x, y, change = processing(frame)
-        print("x, y :", x, y)
-
-        if x == None:
-            print("No Line")
-            dxl_io.set_moving_speed({
-                1: speed[0],
-                2: speed[1]
-            })
-
         else:
-            if x == 0:
+            if vari == 0:
                 speed = (
                     - RED_SPEED,
                     RED_SPEED
                 )
             else:
                 speed = (
-                    - RED_SPEED + 0.6 * x + 0.0005 * (x / abs(x)) * x ** 2,
-                    RED_SPEED + 0.6 * x + 0.0005 * (x / abs(x)) * x ** 2
+                    - RED_SPEED + 0.6 * vari + 0.0005 * (vari / abs(vari)) * vari ** 2,
+                    RED_SPEED + 0.6 * vari + 0.0005 * (vari / abs(vari)) * vari ** 2
                 )
 
-            dxl_io.set_moving_speed({
-                1: speed[0],
-                2: speed[1]
-            })
+        dxl_io.set_moving_speed({
+            1: speed[0],
+            2: speed[1]
+        })
+
+        x, y = robot.odom(direct_kinematics())
+        blue_x.append(x)
+        blue_y.append(y)
 
 except KeyboardInterrupt:
     speed = {1: 0, 2: 0}
