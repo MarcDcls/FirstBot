@@ -38,9 +38,10 @@ if not cap.isOpened():
 
 SPEED = 500
 BLUE_TIME = 34
+RED_TIME = 3.8
 
-initial_time = time.time()
 try:
+    # initial_time = time.time()
     # init_values("blue")
     # speed = (-SPEED, SPEED)
     # while True:
@@ -78,9 +79,23 @@ try:
     #     if time.time() - initial_time > BLUE_TIME:
     #         break
 
+    initial_time = time.time()
     init_values("red")
     speed = (-SPEED, SPEED)
     while True:
+
+        if RED_TIME < time.time() - initial_time < RED_TIME + 0.5:
+            speed = (
+                - SPEED - 100,
+                SPEED
+            )
+
+            dxl_io.set_moving_speed({
+                1: speed[0],
+                2: speed[1]
+            })
+            continue
+
         ret, frame = cap.read()
         if not ret:
             print("Can't receive frame (stream end?).")
@@ -104,8 +119,8 @@ try:
                 )
             else:
                 speed = (
-                    - SPEED + 0.5 * x + 0.002 * (x / abs(x)) * x ** 2,
-                    SPEED + 0.5 * x + 0.002 * (x / abs(x)) * x ** 2
+                    - SPEED + 0.5 * x + 0.0015 * (x / abs(x)) * x ** 2,
+                    SPEED + 0.5 * x + 0.0015 * (x / abs(x)) * x ** 2
                 )
 
             dxl_io.set_moving_speed({
