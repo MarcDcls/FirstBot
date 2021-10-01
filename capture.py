@@ -1,5 +1,5 @@
 import cv2 as cv
-from process import processing
+from image_processing import processing
 import pypot.dynamixel
 import itertools
 import numpy
