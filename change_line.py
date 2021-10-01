@@ -79,10 +79,7 @@ try:
 
         if x == None:
             print("No Line")
-            speed = {1: 0, 2: 0}
             dxl_io.set_moving_speed(speed)
-            cap.release()
-            exit()
 
         #     print("No line detected.")
         #     s = 40
@@ -95,8 +92,8 @@ try:
         # else:
         else:
             speed = (
-                - default_speed + 0.7 * x,
-                default_speed + 0.7 * x
+                - default_speed + 0.75 * x,
+                default_speed + 0.75 * x
             )
             print(x)
             print(speed)
