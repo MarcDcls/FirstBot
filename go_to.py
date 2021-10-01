@@ -46,7 +46,7 @@ try:
         print("x, y :", robot.x, robot.y)
         v = LINEAR_FACTOR * distance
 
-        angle =  np.arctan2(Y - robot.y, X + robot.x)
+        angle =  np.pi / 2 - np.arctan2(Y - robot.y, X + robot.x)
         w = ANGULAR_FACTOR * angle
         # print("angle :", angle)
         # print("v, w :", v, w)
