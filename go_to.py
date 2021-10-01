@@ -7,7 +7,7 @@ from robot import *
 ################################ DESTINATION ################################
 
 X = 1
-Y = 0
+Y = 1
 THETA = 0 # - np.pi / 2
 
 ################################# VARIABLES #################################
@@ -15,7 +15,7 @@ THETA = 0 # - np.pi / 2
 FRAMERATE = 1 / 30
 
 LINEAR_FACTOR = 0.4
-ANGULAR_FACTOR = 1
+ANGULAR_FACTOR = 2
 DELTA = 0.03
 
 ports = pypot.dynamixel.get_available_ports()
