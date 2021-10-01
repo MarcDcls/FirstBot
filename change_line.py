@@ -41,7 +41,7 @@ RED_SPEED = 400
 BLUE_TIME = 34
 RED_TIME_1 = 8
 RED_TIME_2 = 45
-RED_TIME_3 = 47
+RED_TIME_3 = 46
 
 try:
     initial_time = time.time()
@@ -99,7 +99,7 @@ try:
             })
             continue
 
-        elif RED_TIME_2 < time.time() - initial_time < RED_TIME_2 + 2:
+        elif RED_TIME_2 < time.time() - initial_time < RED_TIME_2 + 1:
             speed = (
                 - RED_SPEED,
                 RED_SPEED
