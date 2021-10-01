@@ -81,6 +81,11 @@ try:
                  2: w_r * 180 / np.pi}
         dxl_io.set_moving_speed(speed)
 
+        dt = time.time() - current_time
+        current_time += dt
+        robot.odom(v, w, dt)
+        time.sleep(FRAMERATE)
+
     speed = {1: 0, 2: 0}
     dxl_io.set_moving_speed(speed)
 
