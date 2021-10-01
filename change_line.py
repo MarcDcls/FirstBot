@@ -3,15 +3,18 @@ from image_processing import processing, init_values
 import pypot.dynamixel
 import sys
 import numpy as np
+import time
 
-def mean(list_speed):
-    sum_1 = 0
-    sum_2 = 0
-    l = len(list_speed)
-    for i in range(l):
-        sum_1 += list_speed[i][0]
-        sum_2 += list_speed[i][1]
-    return sum_1/l, sum_2/l
+# def mean(list_speed):
+#     sum_1 = 0
+#     sum_2 = 0
+#     l = len(list_speed)
+#     for i in range(l):
+#         sum_1 += list_speed[i][0]
+#         sum_2 += list_speed[i][1]
+#     return sum_1/l, sum_2/l
+
+FIRST_LOOP = 2
 
 line_color = "blue"
 nb_args = len(sys.argv)
@@ -47,6 +50,7 @@ if not cap.isOpened():
 i = 0
 
 change_line = False
+initial_time = 0
 
 try:
     while True:
@@ -60,9 +64,10 @@ try:
 
         if change and not change_line:
             change_line = True
-            dxl_io.set_moving_speed({1:0, 2:0})
+            # dxl_io.set_moving_speed({1:0, 2:0})
             if line_color == "blue":
                 default_speed, p = init_values("red")
+                initial_time = time.time()
             else:
                 default_speed, p = init_values("blue")
 

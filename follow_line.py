@@ -4,7 +4,7 @@ import pypot.dynamixel
 import sys
 import numpy as np
 
-FIRST_LOOP =
+
 
 # def mean(list_speed):
 #     sum_1 = 0
