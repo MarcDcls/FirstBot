@@ -54,13 +54,14 @@ initial_time = 0
 
 try:
     while True:
-        i += 1
+        # i += 1
         ret, frame = cap.read()
+        print(ret)
         if not ret:
             print("Can't receive frame (stream end?).")
             continue
             
-        cv.imwrite("tmp2/" + str(i) + ".jpg", frame)
+        # cv.imwrite("tmp2/" + str(i) + ".jpg", frame)
 
         x, y, change = processing(frame)
 
@@ -78,30 +79,30 @@ try:
         elif not change:
             change_line = False"""
         
-        print(line_color)
+        # print(line_color)
 
-        if x == None:
-            print("No line detected.")
-            s = 40
-            mean_speed = {
-                1: -default_speed + s,
-                2: default_speed + s
-            }
-            dxl_io.set_moving_speed(mean_speed)
+        # if x == None:
+        #     print("No line detected.")
+        #     s = 40
+        #     mean_speed = {
+        #         1: -default_speed + s,
+        #         2: default_speed + s
+        #     }
+        #     dxl_io.set_moving_speed(mean_speed)
+        #
+        # else:
 
-        else:
+        speed = (
+            -default_speed + 0.5*x,
+            default_speed + 0.5*x
+        )
+        print(x)
+        print(speed)
 
-            speed = (
-                -default_speed + 0.5*x,
-                default_speed + 0.5*x
-            )
-            print(x)
-            print(speed)
-
-            dxl_io.set_moving_speed({
-                1: speed[0],
-                2: speed[1]
-            })
+        dxl_io.set_moving_speed({
+            1: speed[0],
+            2: speed[1]
+        })
 
 except KeyboardInterrupt:
     speed = {1:0, 2:0}
