@@ -36,7 +36,7 @@ if not cap.isOpened():
     print("Cannot open camera")
     exit()
 
-BLUE_TIME = 40
+BLUE_TIME = 34
 initial_time = time.time()
 try:
     default_speed, p = init_values("blue")
@@ -68,8 +68,6 @@ try:
                     - default_speed + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
                     default_speed + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
                 )
-            # print(x)
-            # print(speed)
 
             dxl_io.set_moving_speed({
                 1: speed[0],
@@ -97,12 +95,16 @@ try:
             })
 
         else:
-            speed = (
-                - default_speed + 0.8 * (x / abs(x)) * x ** 2,
-                default_speed + 0.8 * (x / abs(x)) * x ** 2
-            )
-            print(x)
-            print(speed)
+            if x == 0:
+                speed = (
+                    - default_speed,
+                    default_speed
+                )
+            else:
+                speed = (
+                    - default_speed + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2,
+                    default_speed + 0.5 * x + 0.001 * (x / abs(x)) * x ** 2
+                )
 
             dxl_io.set_moving_speed({
                 1: speed[0],

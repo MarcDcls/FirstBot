@@ -4,23 +4,13 @@
         "high_H": 160,
         "low_S": 80,
         "low_V": 60,
-        "speed": 500,
-        "p": 0.8
+        "speed": 500
     },
     "red": {
         "low_H": 0,
         "high_H": 20,
         "low_S": 80,
         "low_V": 80,
-        "speed": 300,
-        "p": 1,
-        "structuring_element": 20
-    },
-    "yellow": {
-        "low_H": 20,
-        "high_H": 100,
-        "low_S": 80,
-        "low_V": 80,
-        "structuring_element": 30
+        "speed": 500
     }
 }
