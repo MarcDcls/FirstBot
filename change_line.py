@@ -119,8 +119,8 @@ try:
                 )
             else:
                 speed = (
-                    - SPEED + 0.65 * x + 0.002 * (x / abs(x)) * x ** 2,
-                    SPEED + 0.65 * x + 0.002 * (x / abs(x)) * x ** 2
+                    - SPEED + 0.5 * x + 0.0002 * x ** 3,
+                    SPEED + 0.5 * x + 0.0002 * x ** 3
                 )
 
             dxl_io.set_moving_speed({
