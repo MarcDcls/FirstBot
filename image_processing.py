@@ -84,11 +84,11 @@ def processing(image):
     img = threshold(image)
     x, y = get_centroid(img)
 
-    change = False
-    if is_yellow(image):
-        change = True
+    # change = False
+    # if is_yellow(image):
+    #     change = True
 
-    return x, y, change
+    return x, y, False # change
 
 
 if __name__ == "__main__":
