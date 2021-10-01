@@ -39,7 +39,9 @@ if not cap.isOpened():
 BLUE_SPEED = 500
 RED_SPEED = 400
 BLUE_TIME = 34
-RED_TIME = 7
+RED_TIME_1 = 7
+RED_TIME_2 = 41
+RED_TIME_3 = 43
 
 try:
     # initial_time = time.time()
@@ -85,10 +87,34 @@ try:
     speed = (-RED_SPEED, RED_SPEED)
     while True:
 
-        if RED_TIME < time.time() - initial_time < RED_TIME + 2:
+        if RED_TIME_1 < time.time() - initial_time < RED_TIME_1 + 2:
             speed = (
                 - RED_SPEED,
                 RED_SPEED - 250
+            )
+
+            dxl_io.set_moving_speed({
+                1: speed[0],
+                2: speed[1]
+            })
+            continue
+
+        elif RED_TIME_2 < time.time() - initial_time < RED_TIME_2 + 1:
+            speed = (
+                - RED_SPEED,
+                RED_SPEED - 250
+            )
+
+            dxl_io.set_moving_speed({
+                1: speed[0],
+                2: speed[1]
+            })
+            continue
+
+        elif RED_TIME_3 < time.time() - initial_time < RED_TIME_3 + 4:
+            speed = (
+                - RED_SPEED + 150,
+                RED_SPEED
             )
 
             dxl_io.set_moving_speed({
