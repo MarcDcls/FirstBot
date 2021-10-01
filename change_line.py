@@ -95,8 +95,8 @@ try:
         # else:
         else:
             speed = (
-                - default_speed + 0.6 * x,
-                default_speed + 0.6 * x
+                - default_speed + 0.5 * x,
+                default_speed + 0.5 * x
             )
             print(x)
             print(speed)
