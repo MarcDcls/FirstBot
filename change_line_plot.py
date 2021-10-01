@@ -88,9 +88,9 @@ try:
         v, w = direct_kinematics(speed[0], speed[1])
         dt = time.time() - old_time
         old_time += dt
-        xx, yy = robot.odom(v, w, dt)
-        blue_x.append(xx)
-        blue_y.append(yy)
+        robot.odom(v, w, dt)
+        blue_x.append(robot.x)
+        blue_y.append(robot.y)
 
         if time.time() - initial_time > BLUE_TIME:
             break
@@ -160,9 +160,9 @@ try:
         v, w = direct_kinematics(speed[0], speed[1])
         dt = time.time() - old_time
         old_time += dt
-        xx, yy = robot.odom(v, w, dt)
-        red_x.append(xx)
-        red_y.append(yy)
+        robot.odom(v, w, dt)
+        red_x.append(robot.x)
+        red_y.append(robot.y)
 
     plt.plot(blue_x, blue_y, color='blue')
     plt.plot(red_x, red_y, color='red')
