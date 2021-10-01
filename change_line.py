@@ -66,9 +66,11 @@ try:
             change_line = True
             # dxl_io.set_moving_speed({1:0, 2:0})
             if line_color == "blue":
+                line_color = "red"
                 default_speed, p = init_values("red")
                 initial_time = time.time()
             else:
+                line_color = "blue"
                 default_speed, p = init_values("blue")
 
         elif not change:
