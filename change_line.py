@@ -59,6 +59,8 @@ try:
         if not ret:
             print("Can't receive frame (stream end?).")
             continue
+            
+        cv.imwrite("tmp2/" + str(i) + ".jpg", frame)
 
         x, y, change = processing(frame)
 
