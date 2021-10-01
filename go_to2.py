@@ -73,7 +73,7 @@ try:
         # print("x, y, theta :", robot.x, robot.y, robot.theta)
         time.sleep(FRAMERATE)
 
-    while abs(THETA - robot.theta) > 0.1:
+    while abs(THETA%(2*np.pi) - robot.theta) > 0.1:
         v = 0
         w = np.pi / 4
         w_l, w_r = inverse_kinematics(v, w)
