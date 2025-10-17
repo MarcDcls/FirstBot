@@ -23,5 +23,4 @@ Pour se connecter en ssh : 'ssh IP' (id = 'pi', password = 'raspberry').
 
 # Ressources 
 
-* Building a Line Following BeagleBone Robot with openCV : http://einsteiniumstudios.com/beaglebone-opencv-line-following-robot.html
 * Exemples d'utilisation de pypot.dynamixel : https://poppy-project.github.io/pypot/dynamixel.html
